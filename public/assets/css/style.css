@@ -1098,3 +1098,20 @@ span {
 .footer-copyright .copyright .copyright-text .text a {
     color: black;
 }
+
+#multi_option{
+	max-width: 100%;
+	width: 350px;
+}
+label{
+	display: block;
+	font-size: 18px;
+	font-weight: 700;
+	margin-bottom: 5px;
+    color: green;
+}
+.vscomp-toggle-button{
+	padding: 10px 30px 10px 10px;
+	border-radius: 5px;
+    color: green;
+}

@@ -17,8 +17,6 @@ use Illuminate\Support\Facades\Auth;
     <link rel="stylesheet" href="assets/css/all.css">
     <!-- -------- venobox css ------- -->
     <link rel="stylesheet" href="assets/css/venobox.css" type="text/css" media="screen" />
-    <!-- ---- Bootstrap css--- -->
-    <!-- <link rel="stylesheet" href="assets/css/bootstrap.min.css"> -->
     <!-- ---------- default css --------- -->
     <link rel="stylesheet" href="assets/css/default.css">
     <!-- --- style css -->
@@ -30,6 +28,9 @@ use Illuminate\Support\Facades\Auth;
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- model bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- search box link -->
+    <link rel="stylesheet" type="text/css" href="assets/css/virtual-select.min.css">
+
 </head>
 
 <body ">
@@ -41,17 +42,67 @@ use Illuminate\Support\Facades\Auth;
         @include('includes.sidebar')
         <div class="col-md-9">
 
+            <div class="container ml-5">
+                <button type="button" class="btn btn-success mt-3" style="color: white; background-color: green;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    Create event
+                </button>
 
-            <button type="button" class="btn btn-success mt-3" style="color: white; background-color: green;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                Create event
-            </button>
+                <button type="button" class="btn btn-success mt-3" style="color: white; background-color: green;" data-bs-toggle="modal" data-bs-target="#addProxy">
+                    Add Proxy
+                </button>
+            </div>
+
+
             @if(Session::has('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert" style="max-width: 300px;">
+            <div class="alert alert-success alert-dismissible mt-2 fade show" role="alert">
                 {{ Session::get('success') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">x</button>
             </div>
             @endif
 
+            <!-- start model for adding proxy -->
+            <form action="{{ route('proxy.store')}}" method="POST">
+
+                @csrf
+                <div class="modal fade" id="addProxy" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">Add new proxy</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="formGroupExampleInput" class="form-label">Name</label>
+                                    <input type="text" name="name" class="form-control" id="formGroupExampleInput" placeholder="Enter proxy name">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="formGroupExampleInput" class="form-label">Phone</label>
+                                    <input type="phone" name="phone" class="form-control" id="formGroupExampleInput" placeholder="Enter proxy phone">
+                                </div>
+
+                                <div>
+                                    <label>Share holder</label><br>
+                                    <select id="multi_option" multiple name="shareholders[]" placeholder="Select shareholders to represent" style="width: 400px;" data-silent-initial-value-set="false">
+                                        <option value="1">HTML</option>
+                                        <option value="2">CSS</option>
+                                        <option value="3">JavaScript</option>
+                                        <option value="4">Python</option>
+                                        <option value="5">JAVA</option>
+                                        <option value="6">PHP</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" style="color: white; background-color: red;" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-success" style="color: white; background-color: green;">Create</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- end the modal for adding proxy-->
 
             <!-- start model for adding data  -->
             <form action="{{ route('event.store') }}" method="POST">
@@ -86,6 +137,7 @@ use Illuminate\Support\Facades\Auth;
                 </div>
             </form>
             <!-- end the modal for adding data-->
+
 
             <div class="container m-4">
                 <div class="card shadow p-3 mb-5 bg-body rounded">
@@ -215,7 +267,7 @@ use Illuminate\Support\Facades\Auth;
         });
     });
 </script>
-
+<script type="text/javascript" src="assets/js/virtual-select.min.js"></script>
 <script>
     $(document).ready(function() {
         var table = $('#example').DataTable();
@@ -247,7 +299,9 @@ use Illuminate\Support\Facades\Auth;
 
             $('#deleteform').attr('action', '/event/' + data[0]);
             $('#deleteModel').modal('show');
-
+        });
+        VirtualSelect.init({
+            ele: '#multi_option'
         });
     });
 </script>

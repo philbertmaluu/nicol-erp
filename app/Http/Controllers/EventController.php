@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Event;
+use App\Models\proxy;
 
 class EventController extends Controller
 {
@@ -40,6 +41,23 @@ class EventController extends Controller
         $event->startTime = $request->time;
         $event->save();
         return redirect()->back()->with('success', 'Event successfully created');
+    }
+
+    public function proxystore(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'phone' => 'required',
+            'shareholders' => 'required'
+        ]);
+
+        dd($request);
+        $proxy = new proxy;
+        $proxy->name = $request->name;
+        $proxy->phone = $request->phone;
+        $proxy->shareholders = $request->shareholders;
+        $proxy->save();
+        return redirect()->back() - with('success', 'proxy created sucessfully.');
     }
 
     /**

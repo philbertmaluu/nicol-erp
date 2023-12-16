@@ -4,6 +4,7 @@ use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\ProxyController;
 
 
 /*
@@ -27,6 +28,8 @@ Route::get('home', [LandingController::class, 'redirect'])->middleware([]);
 //     'index' => 'auth', 'create' => 'auth', 'store' => 'auth', 'edit' => 'auth', 'show' => 'auth',
 // ]);
 Route::resource('event', EventController::class)->middleware(['index' => 'auth', 'store' => 'auth', 'edit' => 'auth']);
+Route::resource('proxy', ProxyController::class)->middleware(['index' => 'auth', 'store' => 'auth', 'edit' => 'auth', 'create' => 'auth']);
+
 
 Route::middleware([
     'auth:sanctum',

@@ -6,7 +6,7 @@
             <a href="{{ url('home')}}">Dashboard</a>
         </li>
         <li class="nav-link">
-            <a href="{{ url('event')}}">Event</a>
+            <a href="{{ url('event')}}">Quorums</a>
         </li>
 
 
