@@ -1,5 +1,41 @@
-<x-app-layout>
+<!DOCTYPE html>
+<html lang="en">
 
-    <h1>admin</h1>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-</x-app-layout>
+    <link rel="icon" type="image" href="https://nicol.co.tz/wp-content/uploads/2021/12/nicocr7-1.png">
+    <link rel="stylesheet" href="assets/css/animate.css">
+    <!-- --------- tiny slider css ------ -->
+    <link rel="stylesheet" href="assets/css/tiny-slider.css">
+    <!-- --------- font awsome css ------ -->
+    <link rel="stylesheet" href="assets/css/all.css">
+    <!-- -------- venobox css ------- -->
+    <link rel="stylesheet" href="assets/css/venobox.css" type="text/css" media="screen" />
+    <!-- ---- Bootstrap css--- -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <!-- ---------- default css --------- -->
+    <link rel="stylesheet" href="assets/css/default.css">
+    <!-- --- style css -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+    @include('includes.navmenu')
+    <div class=" container-fluid">
+        <div class="row">
+
+            @include('includes.sidebar')
+
+            <div class="col-md-9">
+
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+</html>
