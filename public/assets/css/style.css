@@ -58,7 +58,7 @@ p {
 
 span {
     display: contents;
-    color: green;
+    color: #3A9340;
 }
 
 /* ------------ all button css ---------- */
@@ -72,7 +72,7 @@ span {
     line-height: 55px;
     border: 2px solid transparent;
     border-radius: 5px;
-    background-color: green;
+    background-color: #3A9340;
     color: #fff;
 }
 
@@ -345,7 +345,7 @@ span {
 
 .navbar-nav .nav-item .nav-link.active,
 .navbar-nav .nav-item .nav-link:hover {
-    color: green;
+    color: #3A9340;
 }
 
 .navbar-nav .nav-item .nav-link::before {
@@ -394,7 +394,7 @@ span {
     left: 130px;
     top: 20%;
     border-radius: 50%;
-    background:  #01AB53;
+    background:  #3A9340;
     animation: animation-1 2s linear infinite;
 }
 
@@ -404,7 +404,7 @@ span {
     left: 150px;
     bottom: 40px;
     border-radius: 50%;
-    background: green;
+    background: #3A9340;
     animation: animation-1 2s linear infinite;
 }
 
@@ -414,7 +414,7 @@ span {
     left: 26px;
     bottom: 25%;
     border-radius: 50%;
-    background: green;
+    background: #3A9340;
     animation: animation-1 2s linear infinite;
 }
 
@@ -424,7 +424,7 @@ span {
     left: 40%;
     top: 175px;
     border-radius: 50%;
-    background: green;
+    background: #3A9340;
     animation: animation-1 2s linear infinite;
 }
 
@@ -434,7 +434,7 @@ span {
     left: 50%;
     bottom: 20%;
     border-radius: 50%;
-    background: green;
+    background: #3A9340;
     animation: animation-1 2s linear infinite;
 }
 
@@ -444,7 +444,7 @@ span {
     left: 45%;
     bottom: 70%;
     border-radius: 50%;
-    background: green;
+    background: #3A9340;
     animation: animation-1 2s linear infinite;
 }
 
@@ -486,7 +486,7 @@ span {
     text-align: center;
     font-size: 18px;
     border-radius: 50%;
-    background-color: green;
+    background-color: #3A9340;
     color: #fff;
 }
 
@@ -566,7 +566,7 @@ span {
     height: 75px;
     display: flex;
     margin: 0 auto 30px;
-    background-color: green;
+    background-color: #3A9340;
     color: #fff;
     font-size: 40px;
     justify-content: center;
@@ -626,7 +626,7 @@ span {
     position: relative;
     width: 394px;
     height: 394px;
-    background-color: #028b02;
+    background-color: #3A9340;
     border-radius: 50%;
 }
 
@@ -684,7 +684,7 @@ span {
 
 .testimonial-section {
     padding: 100px 0;
-    background-color:  green;
+    background-color: #3A9340;
 }
 
 .testimonial-section .tns-controls {
@@ -862,7 +862,7 @@ span {
     font-weight: 700;
     text-align: left;
     background-color: #fff;
-    color: green;
+    color: #3A9340;
 }
 
 .accordion-button:not(.collapsed)::after {
@@ -883,7 +883,7 @@ span {
     position: absolute;
     width: 300px;
     height: 300px;
-    background-color: green;
+    background-color: #3A9340;
     border-radius: 50%;
     z-index: -1;
 }
@@ -917,7 +917,7 @@ span {
 
 .download-content ul li a.app-store {
     margin-right: 28px;
-    background-color: green;
+    background-color: #3A9340;
 }
 
 .download-content ul li a.play-store {
@@ -929,7 +929,7 @@ span {
 .footer-area {
     position: relative;
     overflow: hidden;
-    background-color: green;
+    background-color: #3A9340;
 }
 
 .footer-area .footer-shape {
@@ -1108,10 +1108,10 @@ label{
 	font-size: 18px;
 	font-weight: 700;
 	margin-bottom: 5px;
-    color: green;
+    color: #3A9340;
 }
 .vscomp-toggle-button{
 	padding: 10px 30px 10px 10px;
 	border-radius: 5px;
-    color: green;
+    color: #3A9340;
 }

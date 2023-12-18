@@ -5,17 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Proxy extends Model
+class Shareholder extends Model
 {
     use HasFactory;
+
+
     protected $fillable = [
-        'name',
+        'CSD',
+        'Name',
+        'Email',
         'phone',
-        'shareholders'
+        'shares',
     ];
 
-    public function shareholders()
+    public function proxy()
     {
-        return $this->hasMany(Shareholder::class);
+        return $this->belongsTo(Proxy::class);
     }
 }

@@ -3,16 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Proxy;
+use App\Models\Shareholder;
 
-class ProxyController extends Controller
+class ShareholderController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $shareholders = Shareholder::paginate(10);
+        return view('Shareholder.index', compact('shareholders'));
     }
 
     /**
@@ -29,21 +30,23 @@ class ProxyController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'CSD' => 'required',
             'name' => 'required',
-            'phone' => 'required|max_length=13',
-            'shareholders' => 'required|array',
+            'shares' => 'required',
         ]);
-
-        // dd($request);
-        $proxy = new Proxy;
-        $proxy->name = $request->name;
-        $proxy->phone = $request->phone;
-        $proxy->shareholder_id = json_encode($request->shareholders);
-        $proxy->save();
-        return redirect()->back()->with('success', 'proxy created sucessfully.');
+        $shareholder = new  Shareholder;
+        if ($shareholder->CSD) {
+            // code to check if the csd 
+            //number alresdy exist in the database
+            $shareholder->CSD = $request->CSD;
+        }
+        $shareholder->Name = $request->name;
+        $shareholder->Email = $request->email;
+        $shareholder->phone = $request->phone;
+        $shareholder->shares = $request->shares;
+        $shareholder->save;
+        return redirect()->back()->with('success', 'Shareholder created successfully.');
     }
-
-
 
     /**
      * Display the specified resource.

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\proxy;
+use App\Models\shareholder;
 
 class EventController extends Controller
 {
@@ -13,8 +14,9 @@ class EventController extends Controller
      */
     public function index()
     {
+        $shareholders = Shareholder::all();
         $event = Event::all();
-        return view('Events.index', compact('event'));
+        return view('Events.index', compact('event', 'shareholders'));
     }
 
     /**
@@ -22,6 +24,7 @@ class EventController extends Controller
      */
     public function create()
     {
+
         return view('Events.create');
     }
 

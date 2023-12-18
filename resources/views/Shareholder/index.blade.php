@@ -44,12 +44,12 @@ use Illuminate\Support\Facades\Auth;
 
             <div class="container ml-5">
                 <button type="button" class="btn btn-success mt-3" style="color: white; background-color: green;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                    Create event
+                    Create Shareholder
                 </button>
 
-                <button type="button" class="btn btn-success mt-3" style="color: white; background-color: green;" data-bs-toggle="modal" data-bs-target="#addProxy">
+                <!-- <button type="button" class="btn btn-success mt-3" style="color: white; background-color: green;" data-bs-toggle="modal" data-bs-target="#addProxy">
                     Add Proxy
-                </button>
+                </button> -->
             </div>
 
 
@@ -61,7 +61,7 @@ use Illuminate\Support\Facades\Auth;
             @endif
 
             <!-- start model for adding proxy -->
-            <form action="{{ route('proxy.store')}}" method="POST">
+            <!-- <form action="{{ route('proxy.store')}}" method="POST">
 
                 @csrf
                 <div class="modal fade" id="addProxy" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -74,19 +74,22 @@ use Illuminate\Support\Facades\Auth;
                             <div class="modal-body">
                                 <div class="mb-3">
                                     <label for="formGroupExampleInput" class="form-label">Name</label>
-                                    <input type="text" name="name" class="form-control" id="formGroupExampleInput" placeholder="Enter proxy name" required>
+                                    <input type="text" name="name" class="form-control" id="formGroupExampleInput" placeholder="Enter proxy name">
                                 </div>
                                 <div class="mb-3">
                                     <label for="formGroupExampleInput" class="form-label">Phone</label>
-                                    <input type="phone" name="phone" class="form-control" id="formGroupExampleInput" placeholder="Enter proxy phone" required>
+                                    <input type="phone" name="phone" class="form-control" id="formGroupExampleInput" placeholder="Enter proxy phone">
                                 </div>
 
                                 <div>
                                     <label>Share holder</label><br>
-                                    <select id="multi_option" multiple name="shareholders[]" placeholder="Select shareholders to represent" style="width: 400px;" data-silent-initial-value-set="false" required>
-                                        @foreach($shareholders as $shareholder)
-                                        <option value="{{$shareholder->CSD}}">{{ $shareholder->Name }}</option>
-                                        @endforeach
+                                    <select id="multi_option" multiple name="shareholders[]" placeholder="Select shareholders to represent" style="width: 400px;" data-silent-initial-value-set="false">
+                                        <option value="1">HTML</option>
+                                        <option value="2">CSS</option>
+                                        <option value="3">JavaScript</option>
+                                        <option value="4">Python</option>
+                                        <option value="5">JAVA</option>
+                                        <option value="6">PHP</option>
                                     </select>
                                 </div>
 
@@ -98,11 +101,11 @@ use Illuminate\Support\Facades\Auth;
                         </div>
                     </div>
                 </div>
-            </form>
+            </form> -->
             <!-- end the modal for adding proxy-->
 
             <!-- start model for adding data  -->
-            <form action="{{ route('event.store') }}" method="POST">
+            <form action="{{ route('shareholder.store') }}" method="POST">
                 @csrf
                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -113,16 +116,20 @@ use Illuminate\Support\Facades\Auth;
                             </div>
                             <div class="modal-body">
                                 <div class="mb-3">
+                                    <label for="formGroupExampleInput" class="form-label">CSD Number</label>
+                                    <input type="text" name="CSD" class="form-control" id="formGroupExampleInput" placeholder="Enter shareholder CSD number" required>
+                                </div>
+                                <div class="mb-3">
                                     <label for="formGroupExampleInput" class="form-label">Name</label>
-                                    <input type="text" name="name" class="form-control" id="formGroupExampleInput" placeholder="Enter Event name">
+                                    <input type="text" name="name" class="form-control" id="formGroupExampleInput" placeholder="Enter shareholder name" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="formGroupExampleInput" class="form-label">Event Date</label>
-                                    <input type="date" name="date" class="form-control" id="formGroupExampleInput" placeholder="Enter Event Date">
+                                    <label for="formGroupExampleInput" class="form-label">Email</label>
+                                    <input type="email" name="email" class="form-control" id="formGroupExampleInput" placeholder="Enter shareholder email" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="formGroupExampleInput2" class="form-label">Start Time</label>
-                                    <input type="time" name="time" class="form-control" id="formGroupExampleInput2" placeholder="Enter Start Time">
+                                    <label for="formGroupExampleInput2" class="form-label">Phone</label>
+                                    <input type="number" name="phone" class="form-control" id="formGroupExampleInput2" placeholder="Enter shareholder  phone">
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -142,93 +149,37 @@ use Illuminate\Support\Facades\Auth;
                     <table id="example" class="display nowrap" style="width:100%">
                         <thead>
                             <tr>
-                                <th>Id</th>
+
+                                <th>CSD</th>
                                 <th>Name</th>
-                                <th>EventDate</th>
-                                <th>Start Time</th>
-                                <th>Creates At</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Shares</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($event as $events)
+                            @foreach($shareholders as $shareholder)
                             <tr>
-                                <td>{{$events->id}}</td>
-                                <td>{{ $events->name}}</td>
-                                <td>{{ $events->eventDate}}</td>
-                                <td>{{ $events->startTime}}</td>
-                                <td>{{ $events->created_at}}</td>
+                                <td>{{ $shareholder->CSD }}</td>
+                                <td>{{ $shareholder->Name }}</td>
+                                <td>{{ $shareholder->Email }}</td>
+                                <td>{{ $shareholder->phone }}</td>
+                                <td>{{ $shareholder->shares }}</td>
                                 <td><button class="btn btn-success edit" style="background-color: green; color: #fff;">Edit</button>
                                     <button class="btn btn-danger delete" style="background-color: red; color: #fff;">Delete</button>
                                 </td>
                             </tr>
                             @endforeach
                         </tbody>
+                        </tbody>
 
                     </table>
-
+                    {{ $shareholders->links() }}
                 </div>
             </div>
 
-            <!-- start model for editing data  -->
-            <form action="{{ route('event.update', ['event' => $events->id]) }}" method="POST" id="editform">
-                @csrf
-                @method('put')
-                <div class="modal fade" id="editModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="staticBackdropLabel">Edit event</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="mb-3">
-                                    <label for="formGroupExampleInput" class="form-label">Name</label>
-                                    <input type="text" name="name" id="name" class="form-control" id="formGroupExampleInput" value="{{$events->name}}">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="formGroupExampleInput" class="form-label">Event Date</label>
-                                    <input type="date" name="date" id="date" class="form-control" id="formGroupExampleInput" value="{{$events->eventDate}}">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="formGroupExampleInput2" class="form-label">Start Time</label>
-                                    <input type="time" name="time" id="time" class="form-control" id="formGroupExampleInput2" value="{{$events->startDate}}">
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" style="color: white; background-color: red;" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-success" style="color: white; background-color: green;">Update</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-            <!-- end the modal for editing data-->
 
-            <!-- start model for delete data  -->
-            <form action="{{ route('event.destroy', ['event' => $events->id]) }}" method="POST" id="deleteform">
-                @csrf
-                @method('DELETE')
-                <div class="modal fade" id="deleteModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="staticBackdropLabel">Delete event</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
-                            </div>
-                            <div class="modal-body">
-                                <h5>Sure you want to delete this event?</h5>
-                                <input type="hidden" name="_method" value="DELETE">
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" style="color: white; background-color: red;" data-bs-dismiss="modal">No</button>
-                                <button type="submit" class="btn btn-success" style="color: white; background-color: green;">Yes</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-            <!-- end the modal for delete data-->
         </div>
     </div>
     </div>
