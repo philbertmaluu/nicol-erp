@@ -144,7 +144,7 @@ use Illuminate\Support\Facades\Auth;
 
 
             <div class="container m-4">
-                <div class="card shadow p-3 mb-5 bg-body rounded">
+                <div class="card shadow p-3 mb-5 bg-body rounded" style="width: 1500px;">
 
                     <table id="example" class="display nowrap" style="width:100%">
                         <thead>

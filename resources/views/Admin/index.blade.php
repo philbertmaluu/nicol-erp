@@ -30,10 +30,29 @@
             @include('includes.sidebar')
 
             <div class="col-md-9">
+                <div class="container mt-4  p-3">
+                    <div class="row">
+                        <div class="col-md-3 ">
+                            <div class="card shadow-md p-5 rounded">1</div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card shadow-md p-5 rounded">2</div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card shadow-md p-5 rounded">3</div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card shadow-md p-5 rounded">4</div>
+                        </div>
+                    </div>
+
+                </div>
 
             </div>
-
         </div>
+    </div>
+
+    </div>
     </div>
 
 </body>

@@ -43,11 +43,13 @@ use Illuminate\Support\Facades\Auth;
         <div class="col-md-9">
 
             <div class="container ml-5">
-                <button type="button" class="btn btn-success mt-3" style="color: white; background-color: green;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                @if(\Auth::user()->type == 0)
+                <button type="button" class="btn btn-success mt-3" style="color: white; background-color: #3A9340;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                     Create event
                 </button>
+                @endif
 
-                <button type="button" class="btn btn-success mt-3" style="color: white; background-color: green;" data-bs-toggle="modal" data-bs-target="#addProxy">
+                <button type="button" class="btn btn-success mt-3" style="color: white; background-color: #3A9340;" data-bs-toggle="modal" data-bs-target="#addProxy">
                     Add Proxy
                 </button>
             </div>
@@ -74,11 +76,11 @@ use Illuminate\Support\Facades\Auth;
                             <div class="modal-body">
                                 <div class="mb-3">
                                     <label for="formGroupExampleInput" class="form-label">Name</label>
-                                    <input type="text" name="name" class="form-control" id="formGroupExampleInput" placeholder="Enter proxy name" required>
+                                    <input type="text" name="name" class="form-control" placeholder="Enter proxy name" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="formGroupExampleInput" class="form-label">Phone</label>
-                                    <input type="phone" name="phone" class="form-control" id="formGroupExampleInput" placeholder="Enter proxy phone" required>
+                                    <input type="phone" name="phone" class="form-control" placeholder="Enter proxy phone" required>
                                 </div>
 
                                 <div>
@@ -142,7 +144,6 @@ use Illuminate\Support\Facades\Auth;
                     <table id="example" class="display nowrap" style="width:100%">
                         <thead>
                             <tr>
-                                <th>Id</th>
                                 <th>Name</th>
                                 <th>EventDate</th>
                                 <th>Start Time</th>
@@ -153,14 +154,26 @@ use Illuminate\Support\Facades\Auth;
                         <tbody>
                             @foreach($event as $events)
                             <tr>
-                                <td>{{$events->id}}</td>
-                                <td>{{ $events->name}}</td>
+                                <td>{{$events->name}}</td>
                                 <td>{{ $events->eventDate}}</td>
                                 <td>{{ $events->startTime}}</td>
                                 <td>{{ $events->created_at}}</td>
-                                <td><button class="btn btn-success edit" style="background-color: green; color: #fff;">Edit</button>
+
+                                <td>
+                                    @if(\Auth::user()->type == 0)
+                                    <button class="btn btn-success edit" style="background-color: green; color: #fff;">Edit</button>
                                     <button class="btn btn-danger delete" style="background-color: red; color: #fff;">Delete</button>
+                                    @else
+                                    <button id="attendance" class="btn btn-success attend" style="background-color: #3A9340; color: #fff;">
+                                        <a href="{{ route('attendant.markAttendance', ['eventId' => $events->id, 'eventName' => $events->name]) }}">Mark Attendance</a>
+                                    </button>
+
+
+                                    @endif
                                 </td>
+
+
+
                             </tr>
                             @endforeach
                         </tbody>
@@ -234,7 +247,7 @@ use Illuminate\Support\Facades\Auth;
     </div>
 </body>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
@@ -287,6 +300,16 @@ use Illuminate\Support\Facades\Auth;
 
             $('#deleteform').attr('action', '/event/' + data[0]);
             $('#deleteModel').modal('show');
+        });
+        //start of marking attendant script
+        table.on('click', '.attend', function() {
+            $tr = $(this).closest('tr');
+            if ($tr.hasClass('child')) {
+                $tr = $tr.prev('.parent');
+            }
+            var data = table.row($tr).data();
+            console.log(data);
+            $('#attendance').attr('href', '/attendant/' + data[0]);
         });
         VirtualSelect.init({
             ele: '#multi_option'

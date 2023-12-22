@@ -30,7 +30,7 @@ class ProxyController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'phone' => 'required|max_length=13',
+            'phone' => 'required',
             'shareholders' => 'required|array',
         ]);
 

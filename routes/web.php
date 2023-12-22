@@ -6,6 +6,7 @@ use App\Http\Controllers\LandingController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProxyController;
 use App\Http\Controllers\ShareholderController;
+use App\Http\Controllers\AttendanceController;
 
 
 /*
@@ -31,6 +32,8 @@ Route::get('home', [LandingController::class, 'redirect'])->middleware([]);
 Route::resource('event', EventController::class)->middleware(['index' => 'auth', 'store' => 'auth', 'edit' => 'auth']);
 Route::resource('proxy', ProxyController::class)->middleware(['index' => 'auth', 'store' => 'auth', 'edit' => 'auth', 'create' => 'auth']);
 Route::resource('shareholder', ShareholderController::class)->middleware(['index' => 'auth', 'store' => 'auth', 'edit' => 'auth', 'create' => 'auth']);
+Route::get('attendant/mark-attendance/{eventId}/{eventName}', [AttendanceController::class, 'markAttendance'])->name('attendant.markAttendance');
+Route::resource('attendant', AttendanceController::class)->middleware(['index' => 'auth', 'store' => 'auth', 'edit' => 'auth', 'create' => 'auth']);
 
 Route::middleware([
     'auth:sanctum',

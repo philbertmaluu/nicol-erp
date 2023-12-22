@@ -53,8 +53,6 @@ class EventController extends Controller
             'phone' => 'required',
             'shareholders' => 'required'
         ]);
-
-        dd($request);
         $proxy = new proxy;
         $proxy->name = $request->name;
         $proxy->phone = $request->phone;

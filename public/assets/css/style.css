@@ -1101,7 +1101,7 @@ span {
 
 #multi_option{
 	max-width: 100%;
-	width: 350px;
+	width: 450px;
 }
 label{
 	display: block;
@@ -1114,4 +1114,5 @@ label{
 	padding: 10px 30px 10px 10px;
 	border-radius: 5px;
     color: #3A9340;
+    
 }
