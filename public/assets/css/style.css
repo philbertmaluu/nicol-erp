@@ -10,6 +10,19 @@ body {
     color: #747e74;
     overflow-x: hidden;
 }
+h6{ 
+    font-weight: bold;
+}
+
+.nav-pills .nav-link {
+    color: white;
+    background-color: grey; 
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .nav-link:active {
+    background-color: green; 
+}
 
 * {
     margin: 0;

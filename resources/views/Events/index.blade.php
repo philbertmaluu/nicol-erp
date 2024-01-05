@@ -54,13 +54,15 @@ use Illuminate\Support\Facades\Auth;
                 </button>
             </div>
 
-
-            @if(Session::has('success'))
-            <div class="alert alert-success alert-dismissible mt-2 fade show" role="alert">
-                {{ Session::get('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">x</button>
+            <div class="container m-4">
+                @if(Session::has('success'))
+                <div class="alert alert-success alert-dismissible mt-2 fade show" role="alert">
+                    {{ Session::get('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">x</button>
+                </div>
+                @endif
             </div>
-            @endif
+
 
             <!-- start model for adding proxy -->
             <form action="{{ route('proxy.store')}}" method="POST">
@@ -87,7 +89,7 @@ use Illuminate\Support\Facades\Auth;
                                     <label>Share holder</label><br>
                                     <select id="multi_option" multiple name="shareholders[]" placeholder="Select shareholders to represent" style="width: 400px;" data-silent-initial-value-set="false" required>
                                         @foreach($shareholders as $shareholder)
-                                        <option value="{{$shareholder->CSD}}">{{ $shareholder->Name }}</option>
+                                        <option value="{{$shareholder->id}}">{{ $shareholder->Name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -116,15 +118,29 @@ use Illuminate\Support\Facades\Auth;
                             <div class="modal-body">
                                 <div class="mb-3">
                                     <label for="formGroupExampleInput" class="form-label">Name</label>
-                                    <input type="text" name="name" class="form-control" id="formGroupExampleInput" placeholder="Enter Event name">
+                                    <input type="text" name="name" class="form-control" id="formGroupExampleInput" placeholder="Enter Event name" required>
                                 </div>
                                 <div class="mb-3">
+                                    <label for="formGroupExampleInput" class="form-label">Location</label>
+                                    <select type="number" name="location" class="form-select" aria-label="Default select example" required>
+                                        <option selected>Select the location of the event</option>
+                                        <option value="Dar es salaam">Dar es salaam</option>
+                                        <option value="Arusha">Arusha</option>
+                                        <option value="Dodoma">Dodoma</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
                                     <label for="formGroupExampleInput" class="form-label">Event Date</label>
-                                    <input type="date" name="date" class="form-control" id="formGroupExampleInput" placeholder="Enter Event Date">
+                                    <input type="date" name="date" class="form-control" id="formGroupExampleInput" placeholder="Enter Event Date" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="formGroupExampleInput2" class="form-label">Start Time</label>
-                                    <input type="time" name="time" class="form-control" id="formGroupExampleInput2" placeholder="Enter Start Time">
+                                    <input type="time" name="time" class="form-control" id="formGroupExampleInput2" placeholder="Enter Start Time" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="formGroupExampleInput2" class="form-label">End Time</label>
+                                    <input type="time" name="endtime" class="form-control" id="formGroupExampleInput2" placeholder="Enter End Time" required>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -145,30 +161,36 @@ use Illuminate\Support\Facades\Auth;
                         <thead>
                             <tr>
                                 <th>Name</th>
+                                <th>Location</th>
                                 <th>EventDate</th>
                                 <th>Start Time</th>
-                                <th>Creates At</th>
+                                <th>End Time</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($event as $events)
-                            <tr>
-                                <td>{{$events->name}}</td>
+                            @foreach($events as $events)
+                            <tr data-event-id="{{ $events->id }}">
+
+                                <td>{{$events->name}} </td>
+                                <td>{{$events->Location}} </td>
                                 <td>{{ $events->eventDate}}</td>
                                 <td>{{ $events->startTime}}</td>
-                                <td>{{ $events->created_at}}</td>
+                                <td>{{ $events->endTime}}</td>
 
                                 <td>
                                     @if(\Auth::user()->type == 0)
                                     <button class="btn btn-success edit" style="background-color: green; color: #fff;">Edit</button>
-                                    <button class="btn btn-danger delete" style="background-color: red; color: #fff;">Delete</button>
+                                    <button class="btn btn-danger delete" style=" color: #fff;">Delete</button>
+                                    <button id="attendance" class="btn btn-secondary attend" style=" height:38px; color: #fff;">
+                                        <a href="{{ route('records.eventRecord', ['eventId' => $events->id, 'eventName' => $events->name]) }}" style="  margin-top: -10px;">View</a>
+                                    </button>
                                     @else
+                                    @if($events->is_active == 1)
                                     <button id="attendance" class="btn btn-success attend" style="background-color: #3A9340; color: #fff;">
                                         <a href="{{ route('attendant.markAttendance', ['eventId' => $events->id, 'eventName' => $events->name]) }}">Mark Attendance</a>
                                     </button>
-
-
+                                    @endif
                                     @endif
                                 </td>
 
@@ -199,6 +221,17 @@ use Illuminate\Support\Facades\Auth;
                                     <label for="formGroupExampleInput" class="form-label">Name</label>
                                     <input type="text" name="name" id="name" class="form-control" id="formGroupExampleInput" value="{{$events->name}}">
                                 </div>
+
+                                <div class="mb-3">
+                                    <label for="formGroupExampleInput" class="form-label">Location</label>
+                                    <select type="number" name="location" id="location" class="form-select" aria-label="Default select example" required>
+                                        <option selected>Select the location of the event</option>
+                                        <option value="1">Dar es salaam</option>
+                                        <option value="2">Arusha</option>
+                                        <option value="3">Dodoma</option>
+                                    </select>
+                                </div>
+
                                 <div class="mb-3">
                                     <label for="formGroupExampleInput" class="form-label">Event Date</label>
                                     <input type="date" name="date" id="date" class="form-control" id="formGroupExampleInput" value="{{$events->eventDate}}">
@@ -207,6 +240,11 @@ use Illuminate\Support\Facades\Auth;
                                     <label for="formGroupExampleInput2" class="form-label">Start Time</label>
                                     <input type="time" name="time" id="time" class="form-control" id="formGroupExampleInput2" value="{{$events->startDate}}">
                                 </div>
+                                <div class="mb-3">
+                                    <label for="formGroupExampleInput2" class="form-label">End Time</label>
+                                    <input type="time" name="time" id="endtime" class="form-control" id="formGroupExampleInput2" value="{{$events->endDate}}">
+                                </div>
+
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-danger" style="color: white; background-color: red;" data-bs-dismiss="modal">Close</button>
@@ -281,26 +319,29 @@ use Illuminate\Support\Facades\Auth;
             var data = table.row($tr).data();
             console.log(data);
 
-            $('#id').val(data[0]);
-            $('#name').val(data[1]); // Assuming name is in the first column
+
+            $('#name').val(data[0]); // Assuming name is in the first column
+            $('#location').val(data[1]);
             $('#date').val(data[2]);
             $('#time').val(data[3]);
+            $('#endtime').val(data[4]);
 
             $('#editform').attr('action', '/event/' + data[0]);
             $('#editModel').modal('show');
         });
-        // start of the delete script
+
         table.on('click', '.delete', function() {
             $tr = $(this).closest('tr');
             if ($tr.hasClass('child')) {
                 $tr = $tr.prev('.parent');
             }
-            var data = table.row($tr).data();
-            console.log(data);
+            var eventId = $tr.data('event-id');
+            console.log(eventId);
 
-            $('#deleteform').attr('action', '/event/' + data[0]);
+            $('#deleteform').attr('action', '/event/' + eventId);
             $('#deleteModel').modal('show');
         });
+
         //start of marking attendant script
         table.on('click', '.attend', function() {
             $tr = $(this).closest('tr');

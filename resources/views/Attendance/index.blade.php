@@ -54,6 +54,12 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">x</button>
                         </div>
                         @endif
+                        @if(Session::has('error'))
+                        <div class="alert alert-danger alert-dismissible mt-2 fade show" role="alert">
+                            {{ Session::get('error') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">x</button>
+                        </div>
+                        @endif
                         <h1>Hallo <span style="color: green;">{{$user->name}}</span> mark attendance for <span style="color: green;">{{$eventName}}</span></h1>
                         <div class="row">
                             <div class="container p-1 m-4">
@@ -74,13 +80,14 @@
 
                                     <div class="col shadow-lg ml-2 p-3  bg-body rounded">
                                         <lebel>Proxies</lebel>
-                                        <form action="" method="post">
-                                            <select type="name" id="multi_option" name="native-select" placeholder="Select a proxy" data-search="true" data-silent-initial-value-set="true">
+                                        <form action="{{ route('proxyAttendance.store', ['eventId' => $eventId]) }}" method="post">
+                                            @csrf
+                                            <select type="name" id="multi_option" name="proxy_id" placeholder="Select a proxy" data-search="true" data-silent-initial-value-set="true">
                                                 @foreach($proxies as $proxy)
-                                                <option value="{{ $proxy->name}}">{{ $proxy->name  }}</option>
+                                                <option value="{{ $proxy->id}}">{{ $proxy->name  }}</option>
                                                 @endforeach
                                             </select>
-                                            <button class="btn mt-3" style="background-color: #3A9340; color: #fff;">Mark proxy</button>
+                                            <button class="btn mt-3" type="submit" style="background-color: #3A9340; color: #fff;">Mark proxy</button>
                                         </form>
                                     </div>
 
@@ -92,7 +99,7 @@
                                                     <th>CSD</th>
                                                     <th>Name</th>
                                                     <th>Share</th>
-                                                    <th>Action</th>
+
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -101,7 +108,7 @@
                                                     <td>{{ $record->CSD}}</td>
                                                     <td>{{ $record->name}}</td>
                                                     <td>{{ $record->shares}}</td>
-                                                    <td><button class="btn " style="color: white; background-color: #3A9340;">Unmark</button></td>
+
                                                 </tr>
                                                 @endforeach
                                             </tbody>

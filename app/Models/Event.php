@@ -14,5 +14,6 @@ class Event extends Model
         'name',
         'eventDate',
         'startTime',
+        'is_active'
     ];
 }

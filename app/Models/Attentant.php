@@ -13,4 +13,8 @@ class Attentant extends Model
     {
         return $this->belongsTo(Shareholder::class, 'shareholder_id', 'id');
     }
+    public function proxy()
+    {
+        return $this->belongsTo(Proxy::class, 'proxy_id', 'id');
+    }
 }

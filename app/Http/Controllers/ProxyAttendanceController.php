@@ -9,16 +9,14 @@ use App\Models\Event;
 use App\Models\Attentant;
 use Illuminate\Support\Facades\Auth;
 
-
-class AttendanceController extends Controller
+class ProxyAttendanceController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        // $shareholders = Shareholder::all();
-        // return view('Attendance.index', compact('shareholders'));
+        //
     }
 
     /**
@@ -36,35 +34,49 @@ class AttendanceController extends Controller
     {
         $eventId = $request->input('eventId');
         $request->validate([
-            'shareholder_id' => 'required',
+            'proxy_id' => 'required',
         ]);
-        $shareholderId = $request->input('shareholder_id');
+        $proxyId = $request->input('proxy_id');
+
         $existingRecord = Attentant::where('event_id', $eventId)
-            ->where('shareholder_id', $shareholderId)
+            ->where('proxy_id', $proxyId)
             ->exists();
         if ($existingRecord) {
-            return redirect()->back()->with('error', 'Shareholder is already marked for this event.');
+            return redirect()->back()->with('error', 'Proxy is already marked for this event.');
         } else {
-            $shareholderData = Shareholder::find($shareholderId);
+
+            $shareholderData = Proxy::find($proxyId);
+            $shareholderIds = $shareholderData->shareholder_id;
+
+            $object = json_decode($shareholderIds, true);
+
+            // explode() method is used to remove ',' from the json
+            // implode() method is used to convert the json array to string
+            $shareholderIdsArray = explode(',', implode($object));
+            //get all the shareholder detail which are represented by a particular proxy..
+            $shareholderDatacollection = Shareholder::whereIn('id', $shareholderIdsArray)->get();
+            $totalShares = $shareholderDatacollection->sum('shares');
 
             $shareholderRecord = new attentant;
-            $shareholderRecord->CSD = $shareholderData->CSD;
-            $shareholderRecord->name = $shareholderData->Name;
-            $shareholderRecord->shares = $shareholderData->shares;
+            $shareholderRecord->CSD = 0000;
+            $shareholderRecord->name = $shareholderData->name;
+            $shareholderRecord->shares = $totalShares;
             $shareholderRecord->event_id =  $eventId;
-            $shareholderRecord->shareholder_id = $shareholderId;
-            $shareholderRecord->Attendant_type = 0;
+            $shareholderRecord->shareholder_id =  0;
+            $shareholderRecord->proxy_id = $proxyId;
+            $shareholderRecord->Attendant_type = 1;
             $shareholderRecord->save();
 
-            return redirect()->back()->with('success', 'Shareholder marked succesfully.');
+            return redirect()->back()->with('success', 'Proxy marked succesfully.');
         }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Request $request)
+    public function show(string $id)
     {
+        //
     }
 
     /**
@@ -89,15 +101,5 @@ class AttendanceController extends Controller
     public function destroy(string $id)
     {
         //
-    }
-
-    public function markAttendance(string $eventId, string $eventName)
-    {
-
-        $user = Auth::user();
-        $proxies = proxy::all();
-        $shareholderRecord = Attentant::where('event_id', $eventId)->get();
-        $shareholders = Shareholder::all();
-        return view('Attendance.index', compact('eventName', 'user', 'shareholders', 'proxies', 'shareholderRecord', 'eventId'));
     }
 }

@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('proxies', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('phone');
-            $table->json('shareholders');
-            $table->timestamps();
+        Schema::table('attentants', function (Blueprint $table) {
+            $table->integer('Attendant_type');
         });
     }
 
@@ -25,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('proxies');
+        Schema::table('attentants', function (Blueprint $table) {
+            $table->dropColumn('Attendant_type');
+        });
     }
 };

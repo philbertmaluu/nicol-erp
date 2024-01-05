@@ -7,6 +7,9 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProxyController;
 use App\Http\Controllers\ShareholderController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\ProxyAttendanceController;
+use App\Http\Controllers\RecordController;
+use App\Http\Controllers\vottingController;
 
 
 /*
@@ -33,8 +36,13 @@ Route::resource('event', EventController::class)->middleware(['index' => 'auth',
 Route::resource('proxy', ProxyController::class)->middleware(['index' => 'auth', 'store' => 'auth', 'edit' => 'auth', 'create' => 'auth']);
 Route::resource('shareholder', ShareholderController::class)->middleware(['index' => 'auth', 'store' => 'auth', 'edit' => 'auth', 'create' => 'auth']);
 Route::get('attendant/mark-attendance/{eventId}/{eventName}', [AttendanceController::class, 'markAttendance'])->name('attendant.markAttendance');
-Route::resource('attendant', AttendanceController::class)->middleware(['index' => 'auth', 'store' => 'auth', 'edit' => 'auth', 'create' => 'auth']);
-
+Route::resource('attendant', AttendanceController::class)->middleware(['index' => 'auth', 'store' => 'auth', 'proxy' => 'auth', 'edit' => 'auth', 'create' => 'auth']);
+Route::resource('proxyAttendance', ProxyAttendanceController::class)->middleware(['index' => 'auth', 'store' => 'auth', 'proxy' => 'auth', 'edit' => 'auth', 'create' => 'auth']);
+Route::get('records/eventRecord/{eventId}/{eventName}', [RecordController::class, 'records'])->name('records.eventRecord');
+Route::resource('records', RecordController::class)->middleware(['index' => 'auth', 'store' => 'auth', 'edit' => 'auth', 'create' => 'auth']);
+Route::resource('votting', vottingController::class)->middleware(['index' => 'auth', 'store' => 'auth', 'edit' => 'auth', 'create' => 'auth']);
+// Route::post('events/{id}/update-status', [RecordController::class, 'updateStatus'])->name('event.updateStatus');
+Route::post('/events/{id}/update-status', [RecordController::class, 'updateStatus'])->name('events.updateStatus');
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

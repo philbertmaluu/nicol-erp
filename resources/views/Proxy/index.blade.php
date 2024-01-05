@@ -43,13 +43,11 @@ use Illuminate\Support\Facades\Auth;
         <div class="col-md-9">
 
             <div class="container ml-5">
-                <button type="button" class="btn btn-success mt-3" style="color: white; background-color: #3A9340;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                    Create Shareholder
-                </button>
 
-                <!-- <button type="button" class="btn btn-success mt-3" style="color: white; background-color: green;" data-bs-toggle="modal" data-bs-target="#addProxy">
+
+                <button type="button" class="btn btn-success mt-3" style="color: white; background-color: #3A9340;" data-bs-toggle="modal" data-bs-target="#addProxy">
                     Add Proxy
-                </button> -->
+                </button>
             </div>
 
 
@@ -61,7 +59,7 @@ use Illuminate\Support\Facades\Auth;
             @endif
 
             <!-- start model for adding proxy -->
-            <!-- <form action="{{ route('proxy.store')}}" method="POST">
+            <form action="{{ route('proxy.store')}}" method="POST">
 
                 @csrf
                 <div class="modal fade" id="addProxy" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -101,17 +99,17 @@ use Illuminate\Support\Facades\Auth;
                         </div>
                     </div>
                 </div>
-            </form> -->
+            </form>
             <!-- end the modal for adding proxy-->
 
             <!-- start model for adding data  -->
-            <form action="{{ route('shareholder.store') }}" method="POST">
+            <!-- <form action="{{ route('shareholder.store') }}" method="POST">
                 @csrf
                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="staticBackdropLabel">Create new shareholder</h5>
+                                <h5 class="modal-title" id="staticBackdropLabel">Create new event</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
                             </div>
                             <div class="modal-body">
@@ -139,7 +137,7 @@ use Illuminate\Support\Facades\Auth;
                         </div>
                     </div>
                 </div>
-            </form>
+            </form> -->
             <!-- end the modal for adding data-->
 
 
@@ -150,24 +148,22 @@ use Illuminate\Support\Facades\Auth;
                         <thead>
                             <tr>
 
-                                <th>CSD</th>
+
                                 <th>Name</th>
-                                <th>Email</th>
                                 <th>Phone</th>
                                 <th>Shares</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($shareholders as $shareholder)
+                            @foreach($proxies as $proxy)
                             <tr>
-                                <td>{{ $shareholder->CSD }}</td>
-                                <td>{{ $shareholder->Name }}</td>
-                                <td>{{ $shareholder->Email }}</td>
-                                <td>{{ $shareholder->phone }}</td>
-                                <td>{{ $shareholder->shares }}</td>
-                                <td><button class="btn btn-success edit" style="background-color: #3A9340; color: #fff;">Edit</button>
-                                    <button class="btn btn-danger delete" style="background-color: #DC3545; color: #fff;">Delete</button>
+
+                                <td>{{ $proxy->name }}</td>
+                                <td>{{ $proxy->phone }}</td>
+                                <td>{{ $proxy->shareholder_id}}</td>
+                                <td><button class="btn btn-success edit" style="background-color: green; color: #fff;">Edit</button>
+                                    <button class="btn btn-danger delete" style="background-color: red; color: #fff;">Delete</button>
                                 </td>
                             </tr>
                             @endforeach
@@ -175,7 +171,7 @@ use Illuminate\Support\Facades\Auth;
                         </tbody>
 
                     </table>
-                    {{ $shareholders->links() }}
+                    {{ $proxies->links() }}
                 </div>
             </div>
 

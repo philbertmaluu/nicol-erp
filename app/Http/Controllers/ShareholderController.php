@@ -48,6 +48,26 @@ class ShareholderController extends Controller
         return redirect()->back()->with('success', 'Shareholder created successfully.');
     }
 
+    //    // Merge shareholderData with $shareHolders
+    //    $mergedShareHolders = $shareholders->toArray();
+    //    //dd($shareholders);
+
+    //    foreach ($shareholderData as $proxyId => $shareholders) {
+    //        foreach ($shareholders as $shareholder) {
+    //            $mergedShareHolders[] = [
+    //                'proxy_id' => $proxyId,
+    //                'CSD' => $shareholder['CSD'],
+    //                'Name' => $shareholder['Name'],
+    //                'phone' => $shareholder['phone'],
+    //                'shares' => $shareholder['shares'],
+    //                // Add other necessary fields from the shareholder data
+    //            ];
+    //        }
+    //    }
+
+    //    $AttendanceReport = Attentant::where('event_id', $eventId)->get();
+    //    $total = $AttendanceReport->sum('shares');
+    //    $totalShares = number_format($total);
     /**
      * Display the specified resource.
      */

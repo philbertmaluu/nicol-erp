@@ -18,4 +18,9 @@ class Proxy extends Model
     {
         return $this->hasMany(Shareholder::class);
     }
+
+    protected $casts = [
+        'shareholders' => 'array',
+
+    ];
 }

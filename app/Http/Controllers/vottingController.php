@@ -3,26 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Proxy;
-use App\Models\Shareholder;
 
-class ProxyController extends Controller
+class vottingController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $proxies = Proxy::paginate(10);
-        $allProxy = Proxy::all();
-        foreach ($allProxy as $data) {
-        }
-
-
-        return view('Proxy.index', compact('proxies'));
+        return view('Votting.index');
     }
-
-
 
     /**
      * Show the form for creating a new resource.
@@ -37,22 +27,8 @@ class ProxyController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'phone' => 'required',
-            'shareholders' => 'required|array',
-        ]);
-
-        // dd($request);
-        $proxy = new Proxy;
-        $proxy->name = $request->name;
-        $proxy->phone = $request->phone;
-        $proxy->shareholder_id = json_encode($request->shareholders);
-        $proxy->save();
-        return redirect()->back()->with('success', 'proxy created sucessfully.');
+        //
     }
-
-
 
     /**
      * Display the specified resource.
