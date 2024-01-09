@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-...your-sha512-hash..." crossorigin="anonymous" />
     <style>
         .nav-link:hover {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+            background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
             border-radius: 10px;
         }
 
@@ -14,7 +14,7 @@
             border-radius: 10px;
             font-weight: bolder;
             color: black !important;
-            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3));
+            background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
             border-bottom: 1px solid white;
 
         }
@@ -58,7 +58,12 @@
 
             <li class="nav-link" id="proxy">
                 <a href="{{ url('votting') }}" onclick="setActive('votting')"><i class="fas fa-vote-yea"></i>Voting</a>
+            </li>
 
+            <li class="nav-link" id="proxy">
+                <a href="{{ url('users') }}" onclick="setActive('users')">
+                    <i class="fas fa-user"></i>Users
+                </a>
             </li>
             @endif
         </ul>

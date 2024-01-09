@@ -52,6 +52,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function polls()
+    {
+        return $this->hasMany(Poll::class, 'created_by');
+    }
+
     /**
      * The accessors to append to the model's array form.
      *

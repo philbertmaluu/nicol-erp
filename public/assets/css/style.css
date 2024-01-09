@@ -9,19 +9,20 @@ body {
     font-style: normal;
     color: #747e74;
     overflow-x: hidden;
+
 }
-h6{ 
+h6{
     font-weight: bold;
 }
 
 .nav-pills .nav-link {
     color: white;
-    background-color: grey; 
+    background-color: grey;
 }
 
 .nav-pills .nav-link.active,
 .nav-pills .nav-link:active {
-    background-color: green; 
+    background-color: green;
 }
 
 * {
@@ -955,7 +956,7 @@ span {
     left: 70px;
     background-color: black;
     border-radius: 50%;
-    
+
     animation: animation-1 2s linear infinite;
 
 }
@@ -967,7 +968,7 @@ span {
     bottom: 40px;
     background-color: black;
     border-radius: 50%;
-   
+
     animation: animation-1 2s linear infinite;
 
 }
@@ -979,7 +980,7 @@ span {
     top: 40px;
     background-color: black;
     border-radius: 50%;
-  
+
     animation: animation-1 2s linear infinite;
 
 }
@@ -991,7 +992,7 @@ span {
     bottom: 5px;
     background-color: black;
     border-radius: 50%;
-   
+
     animation: animation-1 2s linear infinite;
 
 }
@@ -1003,7 +1004,7 @@ span {
     top: 0px;
     background-color: #fff;
     border-radius: 50%;
-    
+
     animation: animation-1 2s linear infinite;
 
 }
@@ -1015,7 +1016,7 @@ span {
     top: 125px;
     background-color: #fff;
     border-radius: 50%;
-   
+
     animation: animation-1 2s linear infinite;
 
 }
@@ -1127,5 +1128,5 @@ label{
 	padding: 10px 30px 10px 10px;
 	border-radius: 5px;
     color: #3A9340;
-    
+
 }

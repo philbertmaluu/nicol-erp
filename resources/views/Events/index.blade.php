@@ -47,17 +47,26 @@ use Illuminate\Support\Facades\Auth;
                 <button type="button" class="btn btn-success mt-3" style="color: white; background-color: #3A9340;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                     Create event
                 </button>
-                @endif
 
                 <button type="button" class="btn btn-success mt-3" style="color: white; background-color: #3A9340;" data-bs-toggle="modal" data-bs-target="#addProxy">
                     Add Proxy
                 </button>
+                @endif
             </div>
 
             <div class="container m-4">
                 @if(Session::has('success'))
                 <div class="alert alert-success alert-dismissible mt-2 fade show" role="alert">
                     {{ Session::get('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">x</button>
+                </div>
+                @endif
+            </div>
+
+            <div class="container m-4">
+                @if(Session::has('error'))
+                <div class="alert alert-danger alert-dismissible mt-2 fade show" role="alert">
+                    {{ Session::get('error') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">x</button>
                 </div>
                 @endif

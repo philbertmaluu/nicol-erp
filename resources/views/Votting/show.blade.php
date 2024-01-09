@@ -2,6 +2,7 @@
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 @endphp
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -65,51 +66,57 @@ use Illuminate\Support\Facades\Auth;
                     <div class="row">
                         <div class="col-md-12">
                             <!--------- everything to be set here------------->
-                            <div class="container m-4">
-                                <div class="card shadow p-3 mb-5 bg-body rounded">
-                                    <table id="example" class="display nowrap" style="width:100%">
-                                        <thead>
-                                            <tr>
-                                                <th>Title</th>
-                                                <th>Start Time</th>
-                                                <th>End Time</th>
-                                                <th>Status</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach($polls as $poll)
-                                            <tr data-event-id="{{ $poll->id }}">
-                                                <td>
-                                                    <h6 style="font-weight: bold;">{{$poll->title}}</h6>
-                                                </td>
-                                                <td>{{ $poll->start_at}} </td>
-                                                <td>{{ $poll->end_at}}</td>
-                                                <td>
-                                                    <h6 style="font-weight: bold; color:
-                                                            @if($poll->status == 'PENDING') orange
-                                                            @elseif($poll->status == 'STARTED') green
-                                                            @elseif($poll->status == 'FINISHED') red
-                                                            @endif
-                                                        ">
-                                                        {{ $poll->status }}
+                            <div class="container">
+
+                                <h1 class="center">
+                                    <span style="color: #3A9340;">{{$poll->title}}</span>
+                                </h1>
+
+
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-12 shadow-lg">
+                                            <div class="container m-4">
+                                                <div class="alert alert-success alert-dismissible mt-2 fade show">
+                                                    <h6>
+                                                        The voting process ends <span style="color: #3A9340;">{{$poll->EndDateFormat}}</span>
                                                     </h6>
-                                                </td>
-                                                <td>
-                                                    <button class="btn btn-info edit" style=" color: #fff;"> Update</button>
-                                                    <button class="btn btn-danger delete" style="color: #fff;">Delete</button>
-                                                    <button onclick="window.location='{{ route('poll.show', ['poll' => $poll]) }}'" class="btn btn-success" style="color: #fff;">View</button>
+                                                    <!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">x</button> -->
+                                                </div>
+                                            </div>
 
+                                            <div class="card m-5 shadow-lg">
+                                                <form action="{{ route('poll.vote', [$poll]) }}" method="post">
+                                                    <div class="card p-4">
+                                                        <div class="row justify-content-center">
+                                                            <div class="col-sm-4 p-4">
+                                                                @csrf
+                                                                @foreach($poll->options as $option)
+                                                                <div class="container p-2 shadow-sm">
+                                                                    <p>
+                                                                        <label>
+                                                                            <input style="color: #3A9340;" name="option_id" type="radio" value="{{ $option->id }}" @if ($selectedOption==$option->id) checked @endif />
+                                                                            <span>{{ $option->content }} {{ $option->votes_count }}</span>
+                                                                        </label>
+                                                                    </p>
+                                                                </div>
+                                                                @endforeach
+                                                            </div>
+                                                        </div>
 
-                                                </td>
-                                            </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
+                                                        <div class="row justify-content-center">
+                                                            <button class="btn btn-success" style="background: #3A9340; margin-top: 10px; width: 300px;" type="submit">
+                                                                Vote
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
-
 
                         </div>
                     </div>

@@ -3,6 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\poll;
+use App\Enums\PollStatus;
+use App\Http\Requests\CreatePollRequest;
+use App\Http\Requests\UpdatePollRequest;
+use App\Http\Requests\VoteRequest;
+use App\Models\Option;
+//use App\Models\Poll;
+use App\Models\Vote;
 
 class vottingController extends Controller
 {
@@ -11,7 +19,8 @@ class vottingController extends Controller
      */
     public function index()
     {
-        return view('Votting.index');
+        $polls = poll::all();
+        return view('Votting.index', compact('polls'));
     }
 
     /**
@@ -37,6 +46,7 @@ class vottingController extends Controller
     {
         //
     }
+
 
     /**
      * Show the form for editing the specified resource.

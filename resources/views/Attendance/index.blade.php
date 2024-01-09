@@ -71,7 +71,7 @@
 
                                             <select type="number" id="multi_option" name="shareholder_id" placeholder="Select a shareholder" data-search="true" data-silent-initial-value-set="true">
                                                 @foreach($shareholders as $shareholder)
-                                                <option style="color: green;" value="{{ $shareholder->id }}">{{ $shareholder->Name }}</option>
+                                                <option style="color: green;" value="{{ $shareholder->id }}">{{ $shareholder->CSD }}/{{ $shareholder->Name }}</option>
                                                 @endforeach
                                             </select>
                                             <button class="btn mt-3" type="submit" style="background-color: #3A9340; color: #fff;">Mark shareholder</button>
@@ -194,7 +194,7 @@
                 $('#attendance').attr('href', '/attendant/' + data[0]);
             });
 
-            // search and select 
+            // search and select
             VirtualSelect.init({
                 ele: '#multi_option'
             });

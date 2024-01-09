@@ -82,12 +82,7 @@ use Illuminate\Support\Facades\Auth;
                                 <div>
                                     <label>Share holder</label><br>
                                     <select id="multi_option" multiple name="shareholders[]" placeholder="Select shareholders to represent" style="width: 400px;" data-silent-initial-value-set="false">
-                                        <option value="1">HTML</option>
-                                        <option value="2">CSS</option>
-                                        <option value="3">JavaScript</option>
-                                        <option value="4">Python</option>
-                                        <option value="5">JAVA</option>
-                                        <option value="6">PHP</option>
+                                        <option value="1"></option>
                                     </select>
                                 </div>
 
@@ -151,7 +146,6 @@ use Illuminate\Support\Facades\Auth;
 
                                 <th>Name</th>
                                 <th>Phone</th>
-                                <th>Shares</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -160,8 +154,7 @@ use Illuminate\Support\Facades\Auth;
                             <tr>
 
                                 <td>{{ $proxy->name }}</td>
-                                <td>{{ $proxy->phone }}</td>
-                                <td>{{ $proxy->shareholder_id}}</td>
+                                <td>+255-{{ $proxy->phone }}</td>
                                 <td><button class="btn btn-success edit" style="background-color: green; color: #fff;">Edit</button>
                                     <button class="btn btn-danger delete" style="background-color: red; color: #fff;">Delete</button>
                                 </td>

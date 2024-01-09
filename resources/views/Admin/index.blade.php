@@ -76,9 +76,9 @@
                                 <div class="container">
                                     <div class="row ">
                                         <div class="col-md-3 p-4 mr-2">
-                                            <i class="fas fa-users mt-2" style="font-size: 49px; color: #4E9170; "></i>
+                                            <i class="fa-solid fa-user-group" style="font-size: 49px; color: #3A9340;"></i>
                                         </div>
-                                        <div class="col-md-9 p-4 ml-2">
+                                        <div class=" col-md-9 p-4 ml-2">
                                             <h6 class="text-muted mb-1">{{__('Total Shareholders')}}</h6>
                                             @if($shareHolders)
                                             <span class="h3 font-weight-bold mb-0">{{ $shareHolders }}</span>
@@ -96,7 +96,7 @@
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-md-3 p-4 mr-2">
-                                            <i class="fas fa-user-secret mt-2" style="font-size: 49px; color: #7A7978;"></i>
+                                            <i < class="fa-solid fa-user-large" style="font-size: 49px; color: #3A9340;"></i>
                                         </div>
                                         <div class="col-md-9 p-4 ml-2">
                                             <h6 class="text-muted mb-1">{{__('Total Proxy')}}</h6>
@@ -117,7 +117,7 @@
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-md-3 p-4 mr-2">
-                                            <i class="fas fa-chart-pie mt-2" style="font-size: 49px; color: #DF9054;"></i>
+                                            <i class="fas fa-chart-pie mt-2" style="font-size: 49px; color: #3A9340;"></i>
                                         </div>
                                         <div class="col-md-9 p-4 ml-2">
                                             <h6 class="text-muted mb-1">{{__('Total Shares')}}</h6>
@@ -134,7 +134,7 @@
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-md-3 p-4 mr-2">
-                                            <i class="fas fa-user-tie mt-2" style="font-size: 49px; color: #4DA6D5;"></i>
+                                            <i class="fas fa-user-tie mt-2" style="font-size: 49px; color: #3A9340;"></i>
                                         </div>
                                         <div class="col-md-9 p-4 ml-2">
                                             <h6 class="text-muted mb-1">{{__('Total Agents')}}</h6>
@@ -144,6 +144,120 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="container mt-5">
+                            <div class="row">
+
+                                <div class="card shadow-sm p-3">
+                                    <div class="container">
+                                        <div class="alert alert-success alert-dismissible mt-2 fade show text-center">
+                                            <h1 style="font-weight: bold;">
+                                                <span style="color: #3A9340;">View Events Analytics</span>
+                                            </h1>
+                                            <!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">x</button> -->
+                                        </div>
+                                    </div>
+
+                                    <table class="table">
+                                        <thead>
+                                            <tr style="color: #3A9340;">
+                                                <th>Name</th>
+                                                <th>Location</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="table-group-divider">
+                                            @foreach($events as $events)
+                                            <tr data-event-id="{{ $events->id }}">
+
+                                                <td><span>{{$events->name}}</span> </td>
+                                                <td>{{$events->Location}} </td>
+
+
+                                                <td>
+                                                    @if(\Auth::user()->type == 0)
+                                                    <button id="attendance" class="btn btn-success attend" style=" height:38px; color: #fff; background-color: #3A9340;">
+                                                        <a href="{{ route('records.eventRecord', ['eventId' => $events->id, 'eventName' => $events->name]) }}" style="  margin-top: -10px;">View</a>
+                                                    </button>
+                                                    @endif
+                                                </td>
+
+
+
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container mt-5">
+                            <div class="row">
+                                <div class="col-md-6 ">
+                                    <div class="card shadow-md p-3">
+
+                                        <button type="" class="btn btn-success" style="background-color: #3A9340;">
+                                            <a href="{{ url('shareholder')}}">View All Shareholders</a>
+                                        </button>
+
+                                        <table class="table">
+                                            <thead>
+                                                <tr style="color: #3A9340;">
+                                                    <th>#</th>
+                                                    <th>Name</th>
+                                                    <th>Phone</th>
+                                                    <th>Shares</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="table-group-divider">
+                                                @foreach($shareholdersDetails as $detail)
+                                                <tr>
+                                                    <td scope="row">{{$detail -> CSD}}</td>
+                                                    <td>{{$detail -> Name}}</td>
+                                                    <td>{{$detail -> Phone}}</td>
+                                                    <td>{{$detail -> shares}}</td>
+
+                                                </tr>
+                                                @endforeach
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 ">
+                                    <div class="card shadow-md p-3">
+
+                                        <button type="" class="btn btn-success" style="background-color: #3A9340;">
+                                            <a href="{{ url('proxy')}}">View All Proxies</a>
+
+                                        </button>
+
+                                        <table class="table">
+                                            <thead>
+                                                <tr style="color: #3A9340;">
+                                                    <th>#</th>
+                                                    <th>Name</th>
+                                                    <th>Phone</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="table-group-divider">
+                                                @foreach($ProxiesDetails as $index => $detail)
+                                                <tr>
+                                                    <td>{{ $index + 1 }}</td>
+                                                    <td>{{$detail -> name}}</td>
+                                                    <td>+255-{{$detail -> phone}}</td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
 
                         <!-------------start of the graphs ---------------------------->
                         <div class="container mt-5">

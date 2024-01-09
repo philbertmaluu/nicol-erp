@@ -13,13 +13,35 @@ class ProxyController extends Controller
      */
     public function index()
     {
-        $proxies = Proxy::paginate(10);
-        $allProxy = Proxy::all();
-        foreach ($allProxy as $data) {
+        // $proxyIds = $attendanceReport->pluck('proxy_id')->toArray();
+        // $existingProxies = Proxy::whereIn('id', $proxyIds)->get();
+        $proxy_ids = Proxy::all();
+        foreach ($proxy_ids  as $proxy) {
+            $shareholderIds = json_decode($proxy->shareholder_id, true);
+            if (!empty($shareholderIds) && is_array($shareholderIds)) {
+                $shareholdersData = [];
+
+                foreach ($shareholderIds as $data) {
+                    if (is_string($data)) {
+                        $data = explode(',', $data);
+                    }
+
+                    if (is_array($data)) {
+                        $shareholders = Shareholder::whereIn('id', $data)->get();
+                        $shareholdersData = array_merge($shareholdersData, $shareholders->toArray());
+                    } else {
+                        dd("Invalid data format in proxy with ID: {$proxy->id}");
+                    }
+                }
+                $shareholderData[$proxy->id] = $shareholdersData;
+                //dd($shareholderData);
+            } else {
+                dd("Invalid shareholder_ids format in proxy with ID: {$proxy->id}");
+            }
         }
+        $proxies = Proxy::paginate(10);
 
-
-        return view('Proxy.index', compact('proxies'));
+        return view('Proxy.index', compact('proxies', 'shareholderData'));
     }
 
 
@@ -43,14 +65,36 @@ class ProxyController extends Controller
             'shareholders' => 'required|array',
         ]);
 
-        // dd($request);
+        // Convert the request shareholder IDs to a standard format
+        $requestShareholders = json_encode(array_values($request->shareholders));
+
+        // Fetch all existing proxies
+        $existingProxies = Proxy::all();
+
+        foreach ($existingProxies as $existingProxy) {
+            // Decode the existing shareholder IDs and convert to array
+            $existingShareholders = json_decode($existingProxy->shareholder_id, true);
+            // Check if there is any intersection between the current request shareholders and the existing ones
+            $intersection = array_intersect($existingShareholders, $request->shareholders);
+            if (!empty($intersection)) {
+                return redirect()->back()->with('error', 'Shareholder  already exist with another proxy.');
+            }
+        }
+        // Create a new proxy if shareholder IDs are not found
         $proxy = new Proxy;
         $proxy->name = $request->name;
         $proxy->phone = $request->phone;
         $proxy->shareholder_id = json_encode($request->shareholders);
         $proxy->save();
-        return redirect()->back()->with('success', 'proxy created sucessfully.');
+
+        return redirect()->back()->with('success', 'Proxy created successfully.');
     }
+
+
+
+
+
+
 
 
 
