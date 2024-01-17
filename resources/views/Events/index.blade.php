@@ -164,7 +164,7 @@ use Illuminate\Support\Facades\Auth;
 
 
             <div class="container m-4">
-                <div class="card shadow p-3 mb-5 bg-body rounded">
+                <div class="card shadow p-3 mb-5 bg-body rounded ">
 
                     <table id="example" class="display nowrap" style="width:100%">
                         <thead>
@@ -233,11 +233,11 @@ use Illuminate\Support\Facades\Auth;
 
                                 <div class="mb-3">
                                     <label for="formGroupExampleInput" class="form-label">Location</label>
-                                    <select type="number" name="location" id="location" class="form-select" aria-label="Default select example" required>
+                                    <select type="number" name="location" id="location" class="form-select" aria-label="Default select example" value="{{$events->name}}">
                                         <option selected>Select the location of the event</option>
-                                        <option value="1">Dar es salaam</option>
-                                        <option value="2">Arusha</option>
-                                        <option value="3">Dodoma</option>
+                                        <option value="Dar es salaam">Dar es salaam</option>
+                                        <option value="Arusha">Arusha</option>
+                                        <option value="Dodoma">Dodoma</option>
                                     </select>
                                 </div>
 
@@ -247,11 +247,11 @@ use Illuminate\Support\Facades\Auth;
                                 </div>
                                 <div class="mb-3">
                                     <label for="formGroupExampleInput2" class="form-label">Start Time</label>
-                                    <input type="time" name="time" id="time" class="form-control" id="formGroupExampleInput2" value="{{$events->startDate}}">
+                                    <input type="time" name="starttime" id="time" class="form-control" id="formGroupExampleInput2" value="{{$events->startDate}}">
                                 </div>
                                 <div class="mb-3">
                                     <label for="formGroupExampleInput2" class="form-label">End Time</label>
-                                    <input type="time" name="time" id="endtime" class="form-control" id="formGroupExampleInput2" value="{{$events->endDate}}">
+                                    <input type="time" name="endtime" id="endtime" class="form-control" id="formGroupExampleInput2" value="{{$events->endDate}}">
                                 </div>
 
                             </div>
@@ -305,16 +305,11 @@ use Illuminate\Support\Facades\Auth;
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-<script>
-    $(document).ready(function() {
-        $('#example').DataTable({
-            dom: 'Bfrtip',
-            buttons: [
-                'copy', 'csv', 'excel', 'pdf', 'print'
-            ]
-        });
-    });
-</script>
+
+
+@include('includes.dataTable',['dataTableUrl' => 'event'])
+
+
 <script type="text/javascript" src="assets/js/virtual-select.min.js"></script>
 <script>
     $(document).ready(function() {
@@ -325,6 +320,7 @@ use Illuminate\Support\Facades\Auth;
             if ($tr.hasClass('child')) {
                 $tr = $tr.prev('.parent');
             }
+            var eventid = $tr.data('event-id');
             var data = table.row($tr).data();
             console.log(data);
 
@@ -335,7 +331,7 @@ use Illuminate\Support\Facades\Auth;
             $('#time').val(data[3]);
             $('#endtime').val(data[4]);
 
-            $('#editform').attr('action', '/event/' + data[0]);
+            $('#editform').attr('action', '/event/' + eventid);
             $('#editModel').modal('show');
         });
 
@@ -361,6 +357,7 @@ use Illuminate\Support\Facades\Auth;
             console.log(data);
             $('#attendance').attr('href', '/attendant/' + data[0]);
         });
+
         VirtualSelect.init({
             ele: '#multi_option'
         });

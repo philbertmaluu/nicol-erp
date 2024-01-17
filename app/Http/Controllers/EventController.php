@@ -113,12 +113,15 @@ class EventController extends Controller
         $request->validate([
             'name' => 'required',
             'date' => 'required',
-            'time' => 'required',
+            'starttime' => 'required',
+            'endtime' => 'required',
         ]);
-
+        //dd($request);
         $event->name = $request->name;
         $event->eventDate = $request->date;
-        $event->startTime = $request->time;
+        $event->startTime = $request->starttime;
+        $event->Location = $request->location;
+        $event->endTime = $request->endtime;
 
         $event->save();
         return redirect()->back()->with('success', 'Event successfully updated');

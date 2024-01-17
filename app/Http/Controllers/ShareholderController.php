@@ -12,7 +12,7 @@ class ShareholderController extends Controller
      */
     public function index()
     {
-        $shareholders = Shareholder::paginate(10);
+        $shareholders = Shareholder::paginate(20);
         return view('Shareholder.index', compact('shareholders'));
     }
 
@@ -30,23 +30,33 @@ class ShareholderController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'CSD' => 'required',
+            'CSD' => 'required|unique:shareholders,CSD',
             'name' => 'required',
+            'phone' => 'nullable|max:13',
             'shares' => 'required',
         ]);
-        $shareholder = new  Shareholder;
-        if ($shareholder->CSD) {
-            // code to check if the csd 
-            //number alresdy exist in the database
-            $shareholder->CSD = $request->CSD;
+
+        // Check if a shareholder with the given CSD already exists
+        if (Shareholder::where('CSD', $request->CSD)->exists()) {
+            return redirect()->back()->with('error', 'Shareholder with the provided CSD already exists.');
         }
+
+        // Create a new Shareholder instance
+        $shareholder = new Shareholder;
+
+        // Assign values from the request
+        $shareholder->CSD = $request->CSD;
         $shareholder->Name = $request->name;
         $shareholder->Email = $request->email;
         $shareholder->phone = $request->phone;
         $shareholder->shares = $request->shares;
-        $shareholder->save;
+
+        // Save the shareholder
+        $shareholder->save();
+
         return redirect()->back()->with('success', 'Shareholder created successfully.');
     }
+
 
     //    // Merge shareholderData with $shareHolders
     //    $mergedShareHolders = $shareholders->toArray();
@@ -89,14 +99,44 @@ class ShareholderController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        //dd($request);
+
+        $request->validate([
+            'CSD' => 'required',
+            'name' => 'required',
+            'phone' => 'nullable|max:13',
+            'shares' => 'required'
+        ]);
+
+        try {
+            // Find the shareholder with the given ID
+            $shareholder = Shareholder::findOrFail($id);
+            // Update the details
+            $shareholder->CSD = $request->CSD;
+            $shareholder->Name = $request->name;
+            $shareholder->Email = $request->email;
+            $shareholder->phone = $request->phone;
+            $shareholder->shares = $request->shares;
+            $shareholder->save();
+
+            return redirect()->back()->with('success', 'Shareholder updated successfully');
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return redirect()->back()->with('error', 'Shareholder not found');
+        }
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $shareholder = Shareholder::findOrFail($id);
+            $shareholder->delete();
+            return redirect()->back()->with('success', 'Shareholder deleted successfully');
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return redirect()->back()->with('error', 'Shareholder not found');
+        }
     }
 }

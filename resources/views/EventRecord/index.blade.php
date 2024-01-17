@@ -98,44 +98,60 @@
                             <div class="container mt-4  p-3">
                                 <div class="row">
 
-                                    <div class="col-md-3 ">
+
+
+                                    <div class="col-md-3">
                                         <div class="card shadow-md rounded">
                                             <div class="container">
-                                                <div class="row">
+                                                <div class="row ">
                                                     <div class="col-md-3 p-4 mr-2">
-                                                        <i class="fas fa-users mt-2" style="font-size: 49px; color: #4E9170; "></i>
+                                                        <i class="fa-solid fa-user-group" style="font-size: 49px; color: #3A9340;"></i>
                                                     </div>
-                                                    <div class="col-md-9 p-4 ml-2">
+                                                    <div class=" col-md-9 p-4 ml-2">
                                                         <h6 class="text-muted mb-1">{{__('Shareholders')}}</h6>
+                                                        @if($shareholderNumber)
                                                         <span class="h3 font-weight-bold mb-0">{{ $shareholderNumber  }}</span>
+                                                        @else
+                                                        <span class="h3 font-weight-bold mb-0">0</span>
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
+
+
                                     <div class="col-md-3">
                                         <div class="card shadow-md rounded">
                                             <div class="container">
                                                 <div class="row">
                                                     <div class="col-md-3 p-4 mr-2">
-                                                        <i class="fas fa-user-secret mt-2" style="font-size: 49px; color: #7A7978;"></i>
+                                                        <i < class="fa-solid fa-user-large" style="font-size: 49px; color: #3A9340;"></i>
                                                     </div>
                                                     <div class="col-md-9 p-4 ml-2">
                                                         <h6 class="text-muted mb-1">{{__('Total Proxy')}}</h6>
+                                                        @if($proxiesNumber)
                                                         <span class="h3 font-weight-bold mb-0">{{ $proxiesNumber }}</span>
+                                                        @else
+                                                        <span class="h3 font-weight-bold mb-0">0</span>
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
+
+
+
+
                                     <div class="col-md-3">
                                         <div class="card shadow-md rounded">
                                             <div class="container">
                                                 <div class="row">
                                                     <div class="col-md-3 p-4 mr-2">
-                                                        <i class="fas fa-chart-pie mt-2" style="font-size: 49px; color: #DF9054;"></i>
+                                                        <i class="fas fa-chart-pie mt-2" style="font-size: 49px; color: #3A9340;"></i>
                                                     </div>
                                                     <div class="col-md-9 p-4 ml-2">
                                                         <h6 class="text-muted mb-1">{{__('Total Shares')}}</h6>
@@ -146,23 +162,21 @@
                                         </div>
                                     </div>
 
+
+
                                     <div class="col-md-3">
                                         <div class="card shadow-md rounded">
-
                                             <div class="container">
                                                 <div class="row">
                                                     <div class="col-md-3 p-4 mr-2">
-
-                                                        <i class="fas fa-user-tie mt-2" style="font-size: 49px; color: #4DA6D5;"></i>
-
+                                                        <i class="fas fa-user-tie mt-2" style="font-size: 49px; color: #3A9340;"></i>
                                                     </div>
                                                     <div class="col-md-9 p-4 ml-2">
-                                                        <h6 class="text-muted mb-1">{{__('Agents')}}</h6>
-                                                        <span class="h3 font-weight-bold mb-0">{{ $proxiesNumber }}</span>
+                                                        <h6 class="text-muted mb-1">{{__('Total Agents')}}</h6>
+                                                        <span class="h3 font-weight-bold mb-0">{{ $agent }}</span>
                                                     </div>
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
 
@@ -407,16 +421,7 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-    <script>
-        $(document).ready(function() {
-            $('#example').DataTable({
-                dom: 'Bfrtip',
-                buttons: [
-                    'copy', 'csv', 'excel', 'pdf', 'print'
-                ]
-            });
-        });
-    </script>
+    @include('includes.dataTable',['dataTableUrl' => 'attendant/mark-attendance/{eventId}/{eventName}'])
 
     <script type="text/javascript" src="{{ asset('assets/js/virtual-select.min.js')}}"></script>
     <script>

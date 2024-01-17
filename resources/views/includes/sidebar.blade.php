@@ -39,7 +39,7 @@
 
 <body>
     <div class="d-flex flex-column flex-shrink-0 p-2" style="color: #fff; width: 200px; height: 150vh; background-color: #3A9340; text-decoration: none;">
-        <ul style="margin-top: 70px;">
+        <ul style="margin-top: 30px;">
             @if(Auth::user()->type == 0)
             <li class="nav-link" id="dashboard">
                 <a href="{{ url('home')}}" onclick="setActive('dashboard')"><i class="fa-solid fa-house"></i> Dashboard</a>
@@ -56,9 +56,9 @@
                 <a href="{{ url('proxy')}}" onclick="setActive('proxy')"><i class="fas fa-user-secret"></i> Proxy</a>
             </li>
 
-            <li class="nav-link" id="proxy">
+            <!-- <li class="nav-link" id="proxy">
                 <a href="{{ url('votting') }}" onclick="setActive('votting')"><i class="fas fa-vote-yea"></i>Voting</a>
-            </li>
+            </li> -->
 
             <li class="nav-link" id="proxy">
                 <a href="{{ url('users') }}" onclick="setActive('users')">

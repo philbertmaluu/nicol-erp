@@ -15,6 +15,7 @@ class ProxyController extends Controller
     {
         // $proxyIds = $attendanceReport->pluck('proxy_id')->toArray();
         // $existingProxies = Proxy::whereIn('id', $proxyIds)->get();
+        $shareholders = Shareholder::all();
         $proxy_ids = Proxy::all();
         foreach ($proxy_ids  as $proxy) {
             $shareholderIds = json_decode($proxy->shareholder_id, true);
@@ -41,7 +42,7 @@ class ProxyController extends Controller
         }
         $proxies = Proxy::paginate(10);
 
-        return view('Proxy.index', compact('proxies', 'shareholderData'));
+        return view('Proxy.index', compact('proxies', 'shareholderData', 'shareholders'));
     }
 
 
@@ -127,6 +128,12 @@ class ProxyController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $proxy = Proxy::findOrFail($id);
+            $proxy->delete();
+            return redirect()->back()->with('success', 'Proxy deleted successfully');
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return redirect()->back()->with('error', 'proxy was not created successfully');
+        }
     }
 }

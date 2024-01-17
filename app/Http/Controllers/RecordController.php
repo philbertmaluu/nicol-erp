@@ -8,6 +8,7 @@ use App\Models\Proxy;
 use App\Models\Attentant;
 use App\Models\Event;
 use Illuminate\Support\Facades\Log;
+use App\Models\User;
 
 
 
@@ -56,7 +57,7 @@ class RecordController extends Controller
     {
         // $user = Auth::user();
         $event = Event::find($eventId);
-
+        $agent = User::where('type', 1)->count();
         $proxiesNumber = Attentant::where('event_id', $eventId)
             ->where('attendant_type', 1)
             ->count();
@@ -69,6 +70,7 @@ class RecordController extends Controller
             ->where('event_id', $eventId)
             ->where('attendant_type', 1)
             ->get();
+
 
         //dd($attendanceReport);
         $proxyIds = $attendanceReport->pluck('proxy_id')->toArray();
@@ -120,7 +122,7 @@ class RecordController extends Controller
 
 
 
-        return view('EventRecord.index', compact('eventName', 'shareHolders', 'proxiesNumber', 'shareholderNumber', 'AttendanceReport', 'totalShares', 'eventId', 'shareholderData', 'proxiesattendance', 'event'));
+        return view('EventRecord.index', compact('eventName', 'shareHolders', 'proxiesNumber', 'shareholderNumber', 'AttendanceReport', 'totalShares', 'eventId', 'shareholderData', 'proxiesattendance', 'event', 'agent'));
     }
 
     /**

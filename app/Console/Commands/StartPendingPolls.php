@@ -31,7 +31,7 @@ class StartPendingPolls extends Command
     {
         $pendingPoll = poll::query()->where([
             ['start_at', '>=', now()],
-            ['end_at', '>=', now()],
+            ['end_at', '<=', now()],
             ['status', PollStatus::PENDING->value]
         ])->update(['status' => PollStatus::STARTED->value]);
 

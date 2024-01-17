@@ -52,14 +52,6 @@ use Illuminate\Support\Facades\Auth;
                 </button> -->
             </div>
 
-
-            @if(Session::has('success'))
-            <div class="alert alert-success alert-dismissible mt-2 fade show" role="alert">
-                {{ Session::get('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">x</button>
-            </div>
-            @endif
-
             <!-- start model for adding proxy -->
             <!-- <form action="{{ route('proxy.store')}}" method="POST">
 
@@ -104,6 +96,65 @@ use Illuminate\Support\Facades\Auth;
             </form> -->
             <!-- end the modal for adding proxy-->
 
+
+
+
+            <div class="container m-4">
+
+                @if(Session::has('success'))
+                <div class="alert alert-success alert-dismissible mt-2 fade show" role="alert">
+                    {{ Session::get('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">x</button>
+                </div>
+                @endif
+
+                @if(Session::has('error'))
+                <div class="alert alert-danger alert-dismissible mt-2 fade show" role="alert">
+                    {{ Session::get('error') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">x</button>
+                </div>
+                @endif
+
+                <div class="card shadow p-3 mb-5 bg-body rounded" style="width: 1500px;">
+
+                    <table id="example" class="display nowrap" style="width:100%">
+                        <thead>
+                            <tr>
+
+                                <th>CSD</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Shares</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($shareholders as $shareholder)
+                            <tr data-shareholder-id="{{ $shareholder->id }}">
+                                <td>{{ $shareholder->CSD }}</td>
+                                <td>{{ $shareholder->Name }}</td>
+                                <td>{{ $shareholder->Email }}</td>
+                                <td>
+                                    @if($shareholder->phone)
+                                    +255 {{ $shareholder->phone }}
+                                    @endif
+                                </td>
+                                <td>{{ $shareholder->shares }}</td>
+                                <td><button class="btn btn-success edit" style="background-color: #3A9340; color: #fff;">Edit</button>
+                                    <button class="btn btn-danger delete" style="background-color: #DC3545; color: #fff;">Delete</button>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                        </tbody>
+
+                    </table>
+                    {{ $shareholders->links() }}
+                </div>
+            </div>
+
+
             <!-- start model for adding data  -->
             <form action="{{ route('shareholder.store') }}" method="POST">
                 @csrf
@@ -131,6 +182,11 @@ use Illuminate\Support\Facades\Auth;
                                     <label for="formGroupExampleInput2" class="form-label">Phone</label>
                                     <input type="number" name="phone" class="form-control" id="formGroupExampleInput2" placeholder="Enter shareholder  phone">
                                 </div>
+
+                                <div class="mb-3">
+                                    <label for="formGroupExampleInput2" class="form-label">Shares</label>
+                                    <input type="number" name="shares" class="form-control" id="formGroupExampleInput2" placeholder="Enter shareholder's shares">
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-danger" style="color: white; background-color: red;" data-bs-dismiss="modal">Close</button>
@@ -142,44 +198,76 @@ use Illuminate\Support\Facades\Auth;
             </form>
             <!-- end the modal for adding data-->
 
+            <!-- start model for editing data  -->
+            <form action="{{ route('shareholder.update', ['shareholder' => $shareholder->CSD]) }}" method="POST" id="editform">
+                @csrf
+                @method('put')
+                <div class="modal fade" id="editModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">Edit Shareholder Details</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="mb-3" hidden>
+                                    <label for="formGroupExampleInput" class="form-label">Name</label>
+                                    <input type="number" name="CSD" id="CDS" class="form-control" id="formGroupExampleInput" value="{{$shareholder->CSD}}">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="formGroupExampleInput" class="form-label">Name</label>
+                                    <input type="text" name="name" id="name" class="form-control" id="formGroupExampleInput" value="{{$shareholder->Name}}">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="formGroupExampleInput" class="form-label">Email</label>
+                                    <input type="email" name="email" id="email" class="form-control" id="formGroupExampleInput" value="{{$shareholder->Email}}">
+                                </div>
 
-            <div class="container m-4">
-                <div class="card shadow p-3 mb-5 bg-body rounded" style="width: 1500px;">
+                                <div class="mb-3">
+                                    <label for="formGroupExampleInput2" class="form-label">Phone</label>
+                                    <input type="phone" name="phone" id="phone" class="form-control" id="formGroupExampleInput2" value="{{$shareholder->phone}}">
+                                </div>
 
-                    <table id="example" class="display nowrap" style="width:100%">
-                        <thead>
-                            <tr>
+                                <div class="mb-3">
+                                    <label for="formGroupExampleInput2" class="form-label">Shares</label>
+                                    <input type="number" name="shares" id="shares" class="form-control" id="formGroupExampleInput2" value="{{$shareholder->shares}}">
+                                </div>
 
-                                <th>CSD</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Phone</th>
-                                <th>Shares</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($shareholders as $shareholder)
-                            <tr>
-                                <td>{{ $shareholder->CSD }}</td>
-                                <td>{{ $shareholder->Name }}</td>
-                                <td>{{ $shareholder->Email }}</td>
-                                <td>{{ $shareholder->phone }}</td>
-                                <td>{{ $shareholder->shares }}</td>
-                                <td><button class="btn btn-success edit" style="background-color: #3A9340; color: #fff;">Edit</button>
-                                    <button class="btn btn-danger delete" style="background-color: #DC3545; color: #fff;">Delete</button>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                        </tbody>
-
-                    </table>
-                    {{ $shareholders->links() }}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" style="color: white; background-color: red;" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-success" style="color: white; background-color: green;">Update</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </form>
+            <!-- end the modal for editing data-->
 
-
+            <!-- start model for delete data  -->
+            <form action="{{ route('shareholder.destroy', ['shareholder' => $shareholder->CSD]) }}" method="POST" id="deleteform">
+                @csrf
+                @method('DELETE')
+                <div class="modal fade" id="deleteModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">Delete event</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
+                            </div>
+                            <div class="modal-body">
+                                <h5>Sure you want to delete shareholder?</h5>
+                                <input type="hidden" name="_method" value="DELETE">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" style="color: white; background-color: red;" data-bs-dismiss="modal">No</button>
+                                <button type="submit" class="btn btn-success" style="color: white; background-color: green;">Yes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- end the modal for delete data-->
         </div>
     </div>
     </div>
@@ -196,16 +284,9 @@ use Illuminate\Support\Facades\Auth;
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-<script>
-    $(document).ready(function() {
-        $('#example').DataTable({
-            dom: 'Bfrtip',
-            buttons: [
-                'copy', 'csv', 'excel', 'pdf', 'print'
-            ]
-        });
-    });
-</script>
+
+@include('includes.dataTable',['dataTableUrl' => 'shareholder'])
+
 <script type="text/javascript" src="assets/js/virtual-select.min.js"></script>
 <script>
     $(document).ready(function() {
@@ -216,27 +297,26 @@ use Illuminate\Support\Facades\Auth;
             if ($tr.hasClass('child')) {
                 $tr = $tr.prev('.parent');
             }
+            // var data = table.row($tr).data();
+            // console.log(data);
+            var id = $tr.data('shareholder-id'); // Accessing the custom data attribute
             var data = table.row($tr).data();
             console.log(data);
 
-            $('#id').val(data[0]);
+            $('#CSD').val(data[0]);
             $('#name').val(data[1]); // Assuming name is in the first column
-            $('#date').val(data[2]);
-            $('#time').val(data[3]);
+            $('#email').val(data[2]);
+            $('#phone').val(data[3]);
+            $('#shares').val(data[4]);
 
-            $('#editform').attr('action', '/event/' + data[0]);
+            $('#editform').attr('action', '/shareholder/' + id);
             $('#editModel').modal('show');
         });
         // start of the delete script
         table.on('click', '.delete', function() {
             $tr = $(this).closest('tr');
-            if ($tr.hasClass('child')) {
-                $tr = $tr.prev('.parent');
-            }
-            var data = table.row($tr).data();
-            console.log(data);
-
-            $('#deleteform').attr('action', '/event/' + data[0]);
+            var shareholderId = $tr.data('shareholder-id');
+            $('#deleteform').attr('action', '/shareholder/' + shareholderId);
             $('#deleteModel').modal('show');
         });
         VirtualSelect.init({

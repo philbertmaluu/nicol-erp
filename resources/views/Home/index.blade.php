@@ -101,21 +101,23 @@
             <div class="shape shape-6"></div>
             <div class="container">
                 <div class="row align-items-center justify-content-center justify-content-lg-between">
-                    <div class="col-lg-6 col-md-10">
-                        <div class="header-hero-content">
-                            <h1 class="header-title wow fadeInLeftBig" data-wow-duration="3s" data-wow-delay="0.2s" style=" margin-top: 150px; ">We’re a global stakeholder relation and investment company.</h1>
-                            <p class="text wow fadeInLeftBig" data-wow-duration="3s" data-wow-delay="0.4s">Lorem ipsum dolor sit amet
-                                consectetur adipisicing elit. Aspernatur fugiat qui tenetur sit vero delectus vitae suscipit nostrum</p>
-                            <ul class="d-flex">
-                                <li><a href="{{ route('login') }}" class="main-btn wow fadeInLeftBig" data-wow-duration="3s" data-wow-delay="0.8s">
-                                        Signin Now</a></li>
-                                <li><a href="https://www.youtube.com/watch?v=1nzoOOhQjpY" class="header-video venobox wow fadeInLeftBig" data-autoplay="true" data-vbtype="video" data-wow-duration="3s" data-wow-delay="1.2s"><i class="fas fa-play"></i></a></li>
-                            </ul>
+                    <div class="hero-in-side">
+                        <div class="col-lg-6 col-md-10">
+                            <div class="header-hero-content">
+                                <h1 class="header-title wow fadeInLeftBig" data-wow-duration="3s" data-wow-delay="0.2s" style=" margin-top: 150px; ">The Economic Shield of The Nation</h1>
+                                <p class="text wow fadeInLeftBig" data-wow-duration="3s" data-wow-delay="0.4s">
+                                    NICOL was initially formed in 1999 . Its main goal is to economically empower ordinary citizens by acquiring a stake in the economy of Tanzania through joint ownership in viable economic ventures.</p>
+                                <ul class="d-flex">
+                                    <li><a href="{{ route('login') }}" class="main-btn wow fadeInLeftBig" data-wow-duration="3s" data-wow-delay="0.8s">
+                                            Signin Now</a></li>
+                                    <li><a href="https://www.youtube.com/watch?v=1nzoOOhQjpY" class="header-video venobox wow fadeInLeftBig" data-autoplay="true" data-vbtype="video" data-wow-duration="3s" data-wow-delay="1.2s"><i class="fas fa-play"></i></a></li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="header-image">
-                            <!-- <img src="assets/img/header/header-app.png" alt="" class="image-1  wow fadeInRightBig" data-wow-duration="3s" data-wow-delay="0.5s"> -->
+                        <div class="col-lg-3 col-md-6">
+                            <div class="header-image">
+                                <!-- <img src="assets/img/header/header-app.png" alt="" class="image-1  wow fadeInRightBig" data-wow-duration="3s" data-wow-delay="0.5s"> -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -123,7 +125,7 @@
             <div class="container">
                 <div class="header-shape-1"></div>
                 <div class="header-shape-2">
-                    <img src="assets/img/header/header-shape-2.svg" alt="">
+                    <!-- <img src="assets/img/header/header.svg" alt=""> -->
                 </div>
             </div>
         </div>
@@ -211,7 +213,8 @@
                                 ordinary citizens by acquiring a stake in the
                                 economy of Tanzania through joint ownership in viable economic ventures.</p>
                         </div>
-                        <a href="" class="main-btn">Contact Us</a>
+
+                        <a class="main-btn" href="tel:<a%20href=&quot;tel:(+255)%2022%202111399%20%20682%20720%20679&quot;>(+255)%2022%202111399</a>">Contact Us</a>
                     </div>
                 </div>
             </div>
@@ -225,9 +228,11 @@
             <div class="row justify-content-center testimonial-active-wrapper">
                 <div class="col-xl-6 col-lg-7">
                     <div class="section-title text-center mb-60">
-                        <h1 class="mb-25 text-white wow fadeInUp" data-wow-delay=".2s">What Oure Client Says</h1>
-                        <p class="text-white wow fadeInUp" data-wow-delay=".4s">Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Ipsum, repudiandae pariatur deserunt explicabo repellat voluptatibus.</p>
+                        <h1 class="mb-25 text-white wow fadeInUp" data-wow-delay=".2s">What Our Clients Say</h1>
+                        <p class="text-white wow fadeInUp" data-wow-delay=".4s">Working with this team has been an exceptional experience.
+                            Their commitment to excellence, attention to detail,
+                            and unwavering dedication to client satisfaction are truly commendable. From start to finish, they exceeded our expectations,
+                            delivering outstanding results.</p>
                     </div>
                 </div>
                 <div class="row justify-content-center">
@@ -239,14 +244,14 @@
                                         <div class="image-2">
                                             <img src="assets/img/testemonial/test-1.jpg" alt="">
                                         </div>
-                                        <h4>Said Juma</h4>
-                                        <p>Retired UI Designer</p>
+                                        <h4>HAMZA AZIZ</h4>
+                                        <p>RETIRED SPECIAL FORCE</p>
                                         <div class="quote">
                                             <i class="fas fa-quote-right"></i>
                                         </div>
                                         <div class="content">
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet beatae officia minus
-                                                voluptatibus veritatis unde, asperiores laboriosam tempore voluptates debitis.</p>
+                                            <p>Transitioning from a career in the military to civilian life can be challenging, but this company has provided me with a sense of purpose and a community that feels like a second family. The values of discipline, teamwork,
+                                                and integrity that were instilled in me during my service are mirrored in the ethos of this organization. <span>THANK TO NICOL</span></p>
                                         </div>
                                     </div>
                                 </div>
@@ -257,14 +262,15 @@
                                         <div class="image-2">
                                             <img src="assets/img/testemonial/test-2.jpg" alt="">
                                         </div>
-                                        <h4>John Deo</h4>
-                                        <p>roduct Design</p>
+                                        <h4>GABRIEL KIMARIO</h4>
+                                        <p>ENTREPRENEUR</p>
                                         <div class="quote">
                                             <i class="fas fa-quote-right"></i>
                                         </div>
                                         <div class="content">
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet beatae officia minus
-                                                voluptatibus veritatis unde, asperiores laboriosam tempore voluptates debitis.</p>
+                                            <p>As a proud shareholder, I have experienced firsthand the unwavering
+                                                commitment and dedication of this company. The strategic vision and transparent communication
+                                                from the leadership team have instilled confidence in our investment.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -284,8 +290,7 @@
                 <div class="col-xl-6 col-lg-7">
                     <div class="section-title text-center mb-60">
                         <h1 class="mb-25 wow fadeInUp" data-wow-delay=".2s">Frequencty <span> Asked Queries</span></h1>
-                        <p class="mb-25 wow fadeInUp" data-wow-delay=".4s">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            Iste voluptates, rem est quas ullam consequatur.</p>
+                        <p class="mb-25 wow fadeInUp" data-wow-delay=".4s">People also ask..</p>
                     </div>
                 </div>
                 <div class="row">
@@ -294,7 +299,7 @@
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingOne">
                                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        Can I make an online appointment?
+                                        How can I become a stakeholder in the company?
                                     </button>
                                 </h2>
                                 <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
@@ -307,7 +312,7 @@
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingTwo">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                        How can I select a best items?
+                                        What are the benefits of being a stakeholder?
                                     </button>
                                 </h2>
                                 <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
@@ -320,7 +325,7 @@
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingThree">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                        How can I edit my personal information?
+                                        How are dividends distributed to stakeholders?
                                     </button>
                                 </h2>
                                 <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
@@ -330,6 +335,33 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingThree">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        How can I stay informed about company updates and performance?
+                                    </button>
+                                </h2>
+                                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio nulla possimus excepturi quas natus
+                                        animi laudantium nihil ea ipsam reprehenderit?
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingThree">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        What is the process for selling or transferring my shares?
+                                    </button>
+                                </h2>
+                                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio nulla possimus excepturi quas natus
+                                        animi laudantium nihil ea ipsam reprehenderit?
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -342,7 +374,7 @@
     </section>
     <!-- ----------- FAQ Section End --------- -->
     <!-- ----------- Download Section Start ------- -->
-    <section class="download-area pt-70 pb-40" data-scroll-index="6">
+    <!-- <section class="download-area pt-70 pb-40" data-scroll-index="6">
         <div class="container">
             <div class="row justify-content-center align-items-center">
                 <div class="col-lg-6 col-md-9">
@@ -368,7 +400,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     <!-- ----------- Download Section End ------- -->
     <!-- --------------Footer Section Start ------- -->
     <footer class="footer-area">
@@ -405,11 +437,11 @@
                                 </div>
                                 <ul class="link">
                                     <li><a href="">Home</a></li>
-                                    <li><a href="">Features</a></li>
+
                                     <li><a href="">About</a></li>
                                     <li><a href="">Testimonial</a></li>
-                                    <li><a href="">Pricing</a></li>
-                                    <li><a href="">Download</a></li>
+
+                                    <!-- <li><a href="">Download</a></li> -->
                                 </ul>
                             </div>
                             <div class="footer-link-wrapper mt-45">
@@ -420,7 +452,7 @@
                                     <li><a href="">FAQ</a></li>
                                     <li><a href="">Privacy Policy</a></li>
                                     <li><a href="">Terms OF Use</a></li>
-                                    <li><a href="">Legal</a></li>
+
                                     <li><a href="">Site Map</a></li>
                                 </ul>
                             </div>

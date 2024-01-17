@@ -44,19 +44,10 @@ use Illuminate\Support\Facades\Auth;
 
             <div class="container ml-5">
 
-
                 <button type="button" class="btn btn-success mt-3" style="color: white; background-color: #3A9340;" data-bs-toggle="modal" data-bs-target="#addProxy">
                     Add Proxy
                 </button>
             </div>
-
-
-            @if(Session::has('success'))
-            <div class="alert alert-success alert-dismissible mt-2 fade show" role="alert">
-                {{ Session::get('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">x</button>
-            </div>
-            @endif
 
             <!-- start model for adding proxy -->
             <form action="{{ route('proxy.store')}}" method="POST">
@@ -81,8 +72,10 @@ use Illuminate\Support\Facades\Auth;
 
                                 <div>
                                     <label>Share holder</label><br>
-                                    <select id="multi_option" multiple name="shareholders[]" placeholder="Select shareholders to represent" style="width: 400px;" data-silent-initial-value-set="false">
-                                        <option value="1"></option>
+                                    <select id="multi_option" multiple name="shareholders[]" placeholder="Select shareholders to represent" style="width: 400px;" data-silent-initial-value-set="false" required>
+                                        @foreach($shareholders as $shareholder)
+                                        <option value="{{$shareholder->id}}">{{ $shareholder->Name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
 
@@ -137,7 +130,21 @@ use Illuminate\Support\Facades\Auth;
 
 
             <div class="container m-4">
+                @if(Session::has('success'))
+                <div class="alert alert-success alert-dismissible mt-2 fade show" role="alert">
+                    {{ Session::get('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">x</button>
+                </div>
+                @endif
+
+                @if(Session::has('error'))
+                <div class="alert alert-danger alert-dismissible mt-2 fade show" role="alert">
+                    {{ Session::get('error') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">x</button>
+                </div>
+                @endif
                 <div class="card shadow p-3 mb-5 bg-body rounded" style="width: 1500px;">
+
 
                     <table id="example" class="display nowrap" style="width:100%">
                         <thead>
@@ -151,12 +158,11 @@ use Illuminate\Support\Facades\Auth;
                         </thead>
                         <tbody>
                             @foreach($proxies as $proxy)
-                            <tr>
-
+                            <tr data-proxy-id="{{ $proxy->id }}">
                                 <td>{{ $proxy->name }}</td>
                                 <td>+255-{{ $proxy->phone }}</td>
-                                <td><button class="btn btn-success edit" style="background-color: green; color: #fff;">Edit</button>
-                                    <button class="btn btn-danger delete" style="background-color: red; color: #fff;">Delete</button>
+                                <td>
+                                    <button class=" btn btn-danger delete" style="color: #fff;">Delete</button>
                                 </td>
                             </tr>
                             @endforeach
@@ -167,7 +173,73 @@ use Illuminate\Support\Facades\Auth;
                     {{ $proxies->links() }}
                 </div>
             </div>
+            <!-- start model for editing data  -->
+            <form action="{{ route('proxy.update', ['proxy' => $proxy->id]) }}" method="POST" id="editform">
+                @csrf
+                @method('put')
+                <div class="modal fade" id="editModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">Edit Proxy</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="formGroupExampleInput" class="form-label">Name</label>
+                                    <input type="text" name="name" id="name" class="form-control" id="formGroupExampleInput" value="{{$proxy->name}}">
+                                </div>
 
+
+
+                                <div class="mb-3">
+                                    <label for="formGroupExampleInput" class="form-label">Event Date</label>
+                                    <input type="date" name="" id="date" class="form-control" id="formGroupExampleInput" value="{{$proxy->name}}">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="formGroupExampleInput2" class="form-label">Start Time</label>
+                                    <input type="time" name="time" id="time" class="form-control" id="formGroupExampleInput2" value="{{$proxy->name}}">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="formGroupExampleInput2" class="form-label">End Time</label>
+                                    <input type="time" name="time" id="endtime" class="form-control" id="formGroupExampleInput2" value="{{$proxy->name}}">
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" style="color: white; background-color: red;" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-success" style="color: white; background-color: green;">Update</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- end the modal for editing data-->
+
+            <!-- start model for delete data  -->
+            <form action="{{ route('proxy.destroy', ['proxy' => $proxy->id]) }}" method="POST" id="deleteform">
+                @csrf
+                @method('DELETE')
+                <div class="modal fade" id="deleteModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">Delete event</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
+                            </div>
+                            <div class="modal-body">
+                                <h5>Sure you want to delete proxy?</h5>
+                                <input type="hidden" name="_method" value="DELETE">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" style="color: white; background-color: red;" data-bs-dismiss="modal">No</button>
+                                <button type="submit" class="btn btn-success" style="color: white; background-color: green;">Yes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- end the modal for delete data-->
 
         </div>
     </div>
@@ -185,16 +257,7 @@ use Illuminate\Support\Facades\Auth;
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-<script>
-    $(document).ready(function() {
-        $('#example').DataTable({
-            dom: 'Bfrtip',
-            buttons: [
-                'copy', 'csv', 'excel', 'pdf', 'print'
-            ]
-        });
-    });
-</script>
+@include('includes.dataTable',['dataTableUrl' => 'proxy'])
 <script type="text/javascript" src="assets/js/virtual-select.min.js"></script>
 <script>
     $(document).ready(function() {
@@ -219,13 +282,9 @@ use Illuminate\Support\Facades\Auth;
         // start of the delete script
         table.on('click', '.delete', function() {
             $tr = $(this).closest('tr');
-            if ($tr.hasClass('child')) {
-                $tr = $tr.prev('.parent');
-            }
-            var data = table.row($tr).data();
-            console.log(data);
+            var shareholderId = $tr.data('proxy-id');
 
-            $('#deleteform').attr('action', '/event/' + data[0]);
+            $('#deleteform').attr('action', '/proxy/' + shareholderId);
             $('#deleteModel').modal('show');
         });
         VirtualSelect.init({
